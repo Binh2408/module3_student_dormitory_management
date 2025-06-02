@@ -1,0 +1,58 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+}
+
+.bg-image {
+    background-image: url('https://sohanews.sohacdn.com/160588918557773824/2023/6/4/photo-2-16858501444901463002994.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.login-box {
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 40px;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 400px;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+input.form-control {
+    background-color: transparent;
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+input.form-control::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+input.form-control:focus {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border-color: #fff;
+    box-shadow: none;
+}
+
+.eye-toggle {
+    font-size: 1.2rem;
+    color: #fff;
+    user-select: none;
+}
+
+.btn-light {
+    transition: all 0.3s ease;
+}
+
+.btn-light:hover {
+    background-color: #ddd;
+    color: #000;
+}
+
+.btn-outline-light:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #fff;
+}

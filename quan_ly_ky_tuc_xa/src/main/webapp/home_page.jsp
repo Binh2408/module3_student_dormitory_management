@@ -1,0 +1,373 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: PC
+  Date: 6/2/2025
+  Time: 10:53 AM
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Landing Page</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    .nav-link.nav-hover:hover {
+      color: #ffd9c0 !important;
+      text-decoration: underline;
+      border-radius: 10px;
+
+    }
+
+    .nav-link.active {
+      text-decoration: underline;
+
+    }
+
+    .carousel {
+      max-height: 500px;
+      overflow: hidden;
+    }
+
+    .carousel-item img {
+      height: 500px;
+      object-fit: cover;
+    }
+    #backToTop {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      background-color: #333;
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      font-size: 24px;
+      cursor: pointer;
+      display: none;
+      z-index: 999;
+      transition: background-color 0.3s, transform 0.3s;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    #backToTop:hover {
+      background-color: #555;
+      transform: scale(1.1);
+    }
+
+
+  </style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="navbar navbar-expand-lg navbar-light bg-white shadow-sm py-3">
+  <div class="container">
+    <!-- Logo -->
+    <a class="navbar-brand" href="#">
+      <img src="https://subscription.codegym.vn/wp-content/uploads/2024/08/Logo-codegym-Subscription_1.png"
+           alt="Logo" width="150">
+    </a>
+
+    <!-- Search form -->
+    <form class="d-flex ms-auto" role="search">
+      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn text-white" style="background-color: #E85728FF" type="submit">
+        <i class="bi bi-search"></i>
+      </button>
+    </form>
+    <!-- Login Button -->
+    <a href="sign_in" class="btn text-white" style="background-color: #E85728FF; margin-left: 10px">
+      Đăng nhập
+    </a>
+  </div>
+</header>
+
+<!-- Navbar (Navigation Menu) -->
+<nav class="navbar navbar-expand-lg" style="background-color: #E85728FF;">
+  <div class="container">
+    <button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu"
+            aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-center" id="navbarMenu">
+      <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link text-white nav-hover active" aria-current="page" href="#">Trang chủ</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white nav-hover" href="#">Giới thiệu</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white nav-hover" href="#">Liên hệ</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white nav-hover" href="#">Thông báo</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white nav-hover" href="#">Góp ý</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white nav-hover" href="#">Hợp đồng</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!--SLIDE-BAR-->
+<div class="row">
+  <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active"
+              aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1"
+              aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2"
+              aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+      <div class="carousel-item active" data-bs-interval="10000">
+        <img src="https://cdn.codegym.vn/wp-content/uploads/2022/06/trang-chu-2-7.jpg" class="d-block w-100"
+             alt="...">
+      </div>
+      <div class="carousel-item" data-bs-interval="2000">
+        <img src="https://channel.mediacdn.vn/2021/9/30/photo-2-1632975337484927106899.jpg"
+             class="d-block w-100"
+             alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="https://cdn.codegym.vn/wp-content/uploads/2022/04/Hoc-vien-Banner-CG.jpg"
+             class="d-block w-100"
+             alt="...">
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+</div>
+
+<!--NOTIFICATION-->
+<div class="container">
+  <section class="container py-5">
+    <h2 class="text-center fw-bold text-danger mb-4">TIN TỨC</h2>
+    <div class="row">
+      <!-- Cột bên trái -->
+      <div class="col-md-8">
+        <div class="row g-3">
+          <!-- Bài viết 1 -->
+          <div class="col-md-6">
+            <div class="card h-100">
+              <img src="https://fpt.edu.vn/images/banner/robotics.jpg" class="card-img-top"
+                   style="height: 180px; object-fit: cover;" alt="...">
+              <div class="card-body">
+                <h6 class="card-title fw-bold">Danh sách bảng thi đấu vòng chung kết AI cuộc thi FPTU AI
+                  & Robotics Challenge 2025</h6>
+                <p class="card-text text-muted small">2 giờ trước</p>
+              </div>
+            </div>
+          </div>
+          <!-- Bài viết 2 -->
+          <div class="col-md-6">
+            <div class="card h-100">
+              <img src="https://fpt.edu.vn/images/banner/genai.jpg" class="card-img-top"
+                   style="height: 180px; object-fit: cover;" alt="...">
+              <div class="card-body">
+                <h6 class="card-title fw-bold">Điểm phân thi Video truyền thông với GenAI cuộc thi FPTU
+                  AI & Robotics Challenge 2025</h6>
+                <p class="card-text text-muted small">20 giờ trước</p>
+              </div>
+            </div>
+          </div>
+          <!-- Bài viết 3 -->
+          <div class="col-md-6">
+            <div class="card h-100">
+              <img src="https://fpt.edu.vn/images/banner/odyssey.jpg" class="card-img-top"
+                   style="height: 180px; object-fit: cover;" alt="...">
+              <div class="card-body">
+                <h6 class="card-title fw-bold">Khối Giáo dục FPT ký kết hợp tác chiến lược với tổ chức
+                  giáo dục Odyssey (Pháp)</h6>
+                <p class="card-text text-muted small">2 ngày trước</p>
+              </div>
+            </div>
+          </div>
+          <!-- Bài viết 4 -->
+          <div class="col-md-6">
+            <div class="card h-100">
+              <img src="https://fpt.edu.vn/images/banner/hackathon.jpg" class="card-img-top"
+                   style="height: 180px; object-fit: cover;" alt="...">
+              <div class="card-body">
+                <h6 class="card-title fw-bold">Thí sinh FPT Hackathon 2025 giải bài toán về AI và
+                  logistics thông minh</h6>
+                <p class="card-text text-muted small">2 ngày trước</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cột bên phải -->
+      <div class="col-md-4">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item border-0 px-0">
+            <a href="https://www.facebook.com/share/p/1AXFawKQwC/" class="text-dark fw-bold d-block">26 HÀM
+              JAVASCRIPT GIÚP CODE SẠCH NHƯ LẬP TRÌNH VIÊN CHUYÊN NGHIỆP – PHẦN 1</a>
+            <small class="text-muted">28/05/2025</small>
+          </li>
+          <li class="list-group-item border-0 px-0">
+            <a href="https://www.facebook.com/share/p/1Fm5nh5jSm/" class="text-dark fw-bold d-block">📣 BẢNG
+              TIN TUYỂN DỤNG CẬP NHẬT HÀNG TUẦN</a>
+            <small class="text-muted">24/05/2025</small>
+          </li>
+          <li class="list-group-item border-0 px-0">
+            <a href="https://www.facebook.com/share/p/1Bp6cbWLHw/" class="text-dark fw-bold d-block">🚀 50
+              CÂU HỎI GIT TỪ CƠ BẢN ĐẾN NÂNG CAO – PHẦN 2 ĐÃ LÊN KỆ!</a>
+            <small class="text-muted">23/05/2025</small>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Nút xem thêm -->
+    <div class="text-center mt-4">
+      <a href="#" class="btn btn-outline-danger px-4">XEM THÊM TIN TỨC</a>
+    </div>
+  </section>
+
+</div>
+
+
+<!--EVENT-->
+<div class="row">
+  <section class="py-5" style="background: linear-gradient(to bottom, #6a3093, #a044ff, #ff512f); color: white;">
+    <div class="container">
+      <h2 class="text-center fw-bold mb-5">SỰ KIỆN NỔI BẬT</h2>
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="card bg-transparent border-light text-white h-100">
+            <img src="https://fpt.edu.vn/images/banner/event1.jpg" class="card-img-top" alt="Event 1" style="height: 180px; object-fit: cover;">
+            <div class="card-body">
+              <h5 class="card-title">Workshop GenAI & Ứng dụng thực tế</h5>
+              <p class="card-text">Thời gian: 10/06/2025 - Địa điểm: Hà Nội</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card bg-transparent border-light text-white h-100">
+            <img src="https://fpt.edu.vn/images/banner/event2.jpg" class="card-img-top" alt="Event 2" style="height: 180px; object-fit: cover;">
+            <div class="card-body">
+              <h5 class="card-title">Cuộc thi Code Hackathon 2025</h5>
+              <p class="card-text">Thời gian: 15/06/2025 - Địa điểm: TP. Hồ Chí Minh</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card bg-transparent border-light text-white h-100">
+            <img src="https://fpt.edu.vn/images/banner/event3.jpg" class="card-img-top" alt="Event 3" style="height: 180px; object-fit: cover;">
+            <div class="card-body">
+              <h5 class="card-title">Talkshow: Hành trình trở thành Dev quốc tế</h5>
+              <p class="card-text">Thời gian: 20/06/2025 - Địa điểm: Đà Nẵng</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Nút xem thêm -->
+      <div class="text-center mt-4">
+        <a href="#" class="btn btn-outline-light px-4">XEM THÊM SỰ KIỆN</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+
+<!--FOOTER-->
+<footer class="bg-white border-top pt-3 pb-4">
+  <div class="container text-center text-md-start">
+    <!-- Dòng bản quyền -->
+    <p class="text-muted small text-center mb-4">© 2025 Bản quyền thuộc về CODEGYM - HỆ THỐNG ĐÀO TẠO LẬP TRÌNH HIỆN
+      ĐẠI.</p>
+
+    <!-- Dòng địa chỉ -->
+    <div class="row text-start d-flex justify-content-center">
+      <!-- Hà Nội -->
+      <div class="col-6 col-md-2 mb-3">
+        <h6 class="text-danger fw-bold border-bottom border-danger pb-1">HÀ NỘI</h6>
+        <p class="mb-1 small">23.TT01, Khu đô thị Mon City, Mỹ Đình 2</p>
+        <p class="mb-1 small">Điện thoại: (024) 7300 5588</p>
+        <p class="mb-0 small">Email: <a href="mailto:info@codegym.vn">info@codegym.vn</a></p>
+      </div>
+      <!-- TP.HCM -->
+      <div class="col-6 col-md-2 mb-3">
+        <h6 class="text-danger fw-bold border-bottom border-danger pb-1">SÀI GÒN</h6>
+        <p class="mb-1 small">152 Điện Biên Phủ, Phường 25, Q. Bình Thạnh</p>
+        <p class="mb-1 small">Điện thoại: (028) 7300 5588</p>
+        <p class="mb-0 small">Email: <a href="mailto:info@codegym.vn">info@codegym.vn</a></p>
+      </div>
+      <!-- Đà Nẵng -->
+      <div class="col-6 col-md-2 mb-3">
+        <h6 class="text-danger fw-bold border-bottom border-danger pb-1">ĐÀ NẴNG</h6>
+        <p class="mb-1 small">295 Nguyễn Tất Thành, Quận Hải Châu</p>
+        <p class="mb-1 small">Điện thoại: (0236) 730 0999</p>
+        <p class="mb-0 small">Email: <a href="mailto:info@codegym.vn">info@codegym.vn</a></p>
+      </div>
+
+    </div>
+  </div>
+</footer>
+
+<button id="backToTop" title="Lên đầu trang">↑</button>
+
+</body>
+
+<script>
+  // Đợi DOM load xong
+  document.addEventListener('DOMContentLoaded', function () {
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    navLinks.forEach(link => {
+      link.addEventListener('click', function () {
+        // Xoá 'active' ở tất cả link
+        navLinks.forEach(item => item.classList.remove('active'));
+
+        // Thêm 'active' vào link được click
+        this.classList.add('active');
+      });
+    });
+  });
+</script>
+<script>
+  const backToTopBtn = document.getElementById("backToTop");
+
+  window.onscroll = function () {
+    if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+      backToTopBtn.style.display = "block";
+    } else {
+      backToTopBtn.style.display = "none";
+    }
+  };
+
+  backToTopBtn.addEventListener("click", function () {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  });
+</script>
+
+
+
+</html>
+
