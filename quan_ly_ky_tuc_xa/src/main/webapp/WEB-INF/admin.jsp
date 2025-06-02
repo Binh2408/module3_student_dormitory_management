@@ -54,7 +54,7 @@
             </div>
         </div>
     </nav>
-    
+
     <!-- QUẢN LÝ HỢP ĐỒNG -->
     <div class="container container-section" id="contract-section" style="display: none">
         <h2 class="text-center mt-3 mb-4 text-danger">CONTRACT MANAGEMENT</h2>
