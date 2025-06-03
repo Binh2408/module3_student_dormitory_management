@@ -3,37 +3,64 @@ package org.example.quan_ly_ky_tuc_xa.entity;
 import java.time.LocalDate;
 
 public class Contracts {
-    private int contractId;
-    private String studentName;
+    private String contractCode;
+    private String studentCode;
     private String roomName;;
     private LocalDate startDay;
     private LocalDate endDay;
+    private double rentalCost;
+
 
     public Contracts() {
     }
-
-    public Contracts(int contractId, String studentName,String roomCode, LocalDate startDay, LocalDate endDay) {
-        this.contractId = contractId;
-        this.studentName = studentName;
-        this.roomName = roomCode;
+    public Contracts(String studentName,String roomName, LocalDate startDay, LocalDate endDay, double rentalCost) {
+        this.studentCode = studentName;
+        this.roomName = roomName;
         this.startDay = startDay;
         this.endDay = endDay;
+        this.rentalCost=rentalCost;
     }
 
-    public int getContractId() {
-        return contractId;
+    public Contracts(String contractCode, String studentName,String roomName, LocalDate startDay, LocalDate endDay,double rentalCost) {
+        this.contractCode = contractCode;
+        this.studentCode = studentName;
+        this.roomName = roomName;
+        this.startDay = startDay;
+        this.endDay = endDay;
+        this.rentalCost=rentalCost;
     }
 
-    public void setContractId(int contractId) {
-        this.contractId = contractId;
+    public String getContractCode() {
+        return contractCode;
     }
+
+    public void setContractCode(String contractCode) {
+        this.contractCode = contractCode;
+    }
+
+    public String getStudentCode() {
+        return studentCode;
+    }
+
+    public void setStudentCode(String studentCode) {
+        this.studentCode = studentCode;
+    }
+
+    public double getRentalCost() {
+        return rentalCost;
+    }
+
+    public void setRentalCost(double rentalCost) {
+        this.rentalCost = rentalCost;
+    }
+
 
     public String getStudentName() {
-        return studentName;
+        return studentCode;
     }
 
     public void setStudentName(String studentName) {
-        this.studentName = studentName;
+        this.studentCode = studentName;
     }
 
     public String getRoomName() {

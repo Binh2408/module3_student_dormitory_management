@@ -13,32 +13,39 @@ public class ContractsRepository implements IContractsRepository{
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
         contractsList.add(new Contracts(
-                1,
+                "HD-001",
                 "Nguyen Van A",
                 "A101",
                 LocalDate.parse("01/01/2024", formatter),
-                LocalDate.parse("30/06/2024", formatter)
+                LocalDate.parse("30/06/2024", formatter),
+                10000
         ));
 
         contractsList.add(new Contracts(
-                2,
+                "HD-002",
                 "Tran Thi B",
                 "B202",
                 LocalDate.parse("15/02/2024", formatter),
-                LocalDate.parse("15/08/2024", formatter)
+                LocalDate.parse("15/08/2024", formatter),10000
         ));
 
         contractsList.add(new Contracts(
-                3,
+                "HD-003",
                 "Le Van C",
                 "C303",
                 LocalDate.parse("01/03/2024", formatter),
-                LocalDate.parse("30/09/2024", formatter)
+                LocalDate.parse("30/09/2024", formatter),
+                10000
         ));
     }
     @Override
     public List<Contracts> getAll() {
         return contractsList;
+    }
+
+    @Override
+    public void add(Contracts contract) {
+        contractsList.add(contract);
     }
 
 }
