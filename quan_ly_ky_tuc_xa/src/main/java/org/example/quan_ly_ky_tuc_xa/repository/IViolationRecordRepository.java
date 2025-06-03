@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface IViolationRecordRepository {
     List<ViolationRecord> getAll();
+    void add(ViolationRecord violationRecord);
 }

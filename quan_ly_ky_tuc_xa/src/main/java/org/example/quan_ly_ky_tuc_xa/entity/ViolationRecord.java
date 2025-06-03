@@ -3,8 +3,8 @@ package org.example.quan_ly_ky_tuc_xa.entity;
 import java.time.LocalDate;
 
 public class ViolationRecord {
-    private int violationRecordId;
-    private String violationStudentName;
+    private String violationRecordCode;
+    private String violationStudentCode;
     private String violationTypeName;
     private String levelOfViolationName;
     private LocalDate timeOfViolation;
@@ -12,29 +12,29 @@ public class ViolationRecord {
     public ViolationRecord() {
     }
 
-    public ViolationRecord(int violationRecordId, String violationStudentName, String violationTypeName,
+    public ViolationRecord(String violationRecordCode, String violationStudentName, String violationTypeName,
                            String levelOfViolationName, LocalDate timeOfViolation) {
-        this.violationRecordId = violationRecordId;
-        this.violationStudentName = violationStudentName;
+        this.violationRecordCode = violationRecordCode;
+        this.violationStudentCode = violationStudentName;
         this.violationTypeName = violationTypeName;
         this.levelOfViolationName = levelOfViolationName;
         this.timeOfViolation = timeOfViolation;
     }
 
-    public int getViolationRecordId() {
-        return violationRecordId;
+    public String getViolationRecordCode() {
+        return violationRecordCode;
     }
 
-    public void setViolationRecordId(int violationRecordId) {
-        this.violationRecordId = violationRecordId;
+    public void setViolationRecordCode(String violationRecordCode) {
+        this.violationRecordCode = violationRecordCode;
     }
 
-    public String getViolationStudentName() {
-        return violationStudentName;
+    public String getViolationStudentCode() {
+        return violationStudentCode;
     }
 
-    public void setViolationStudentName(String violationStudentName) {
-        this.violationStudentName = violationStudentName;
+    public void setViolationStudentCode(String violationStudentCode) {
+        this.violationStudentCode = violationStudentCode;
     }
 
     public String getViolationTypeName() {

@@ -7,54 +7,64 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-<head>
-    <title>Creat Contact</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
-</head>
+<jsp:include page="/WEB-INF/common/head_admin.jsp"/>
 <body>
 <div class="d-flex justify-content-center align-items-center container-fluid"
-     style="height: 100vh ;background:#e6fff5">
+     style="height: 100vh">
     <div class="card shadow p-4" style="width: 60%">
         <h2 class="text-center text-success">Create Contract</h2>
-
-        <form id="contractForm" class="needs-validation" novalidate>
+        <form method="post" id="contractForm" class="needs-validation" novalidate>
             <div class="row">
                 <!--               font hợp đồng-->
                 <div class="col-sm-6">
                     <div class="row">
-                        <label class="form-label col-sm-4">StudentCode</label>
+                        <label class="form-label col-sm-4">ContractCode</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control mb-3" placeholder="StudentCode" required>
-                            <div class="invalid-feedback">Vui lòng nhập mã hợp lệ</div>
+                            <input name="contractCode" type="text" class="form-control mb-3" placeholder="ContractCode"
+                                   required
+                                   value="${contract.contractCode}" pattern="^HD-\d{3}$">
+                            <div class="invalid-feedback">please enter the contract code in format SV-HD-XXX</div>
                         </div>
                     </div>
                     <div class="row">
-                        <label class="form-label col-sm-4">RoomCode</label>
+                        <label class="form-label col-sm-4">StudentCode</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control mb-3" placeholder="RoomCode" required>
-                            <div class="invalid-feedback">Vui lòng nhập mã phòng</div>
+                            <input name="studentCode" type="text" class="form-control mb-3" placeholder="StudentCode"
+                                   required
+                                   value="${contract.studentCode}" pattern="^SV-\d{3}$">
+                            <div class="invalid-feedback">Please enter the student code in format SV-XXX</div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="form-label col-sm-4">RoomName</label>
+                        <div class="col-sm-8">
+                            <input name="roomName" type="text" class="form-control mb-3" placeholder="RoomName" required
+                                   value="${contract.roomName}" pattern="^RO-\d{3}$">
+                            <div class="invalid-feedback">Please enter the room name in format RO-XXX</div>
                         </div>
                     </div>
                     <div class="row">
                         <label class="form-label col-sm-4">StartDay</label>
                         <div class="col-sm-8">
-                            <input type="date" class="form-control mb-3" required>
-                            <div class="invalid-feedback">Vui lòng chọn ngày bắt đầu</div>
+                            <input name="startDay" type="date" class="form-control mb-3" required
+                                   value="${contract.startDay}">
+                            <div class="invalid-feedback">Please select start date</div>
                         </div>
                     </div>
                     <div class="row">
                         <label class="form-label col-sm-4">EndDay</label>
                         <div class="col-sm-8">
-                            <input type="date" class="form-control mb-3" required>
-                            <div class="invalid-feedback">Vui lòng chọn ngày kết thúc</div>
+                            <input name="endDay" type="date" class="form-control mb-3" required
+                                   value="${contract.endDay}">
+                            <div class="invalid-feedback">Please select end date</div>
                         </div>
                     </div>
                     <div class="row">
                         <label class="form-label col-sm-4">RentalCost</label>
                         <div class="col-sm-8">
-                            <input type="number" class="form-control mb-3" required>
-                            <div class="invalid-feedback">Vui lòng nhập giá thuê</div>
+                            <input name="rentalCost" type="number" class="form-control mb-3" required
+                                   value="${contract.rentalCost}" min="0">
+                            <div class="invalid-feedback">Please enter rental price</div>
                         </div>
                     </div>
                 </div>
@@ -105,7 +115,8 @@
                     <button type="submit" class="btn btn-outline-success w-100">Create</button>
                 </div>
                 <div class="col-sm-4">
-                    <button type="button" class="btn btn-outline-danger w-100" onclick="window.location.reload()">Exit
+                    <button type="button" class="btn btn-outline-danger w-100"
+                            onclick="window.location.href='contract'">Exit
                     </button>
                 </div>
             </div>
@@ -113,20 +124,6 @@
     </div>
 </div>
 
-<!-- Script xử lý Bootstrap validation -->
-<script>
-    (function () {
-        'use strict'
-        const form = document.getElementById('contractForm');
-        form.addEventListener('submit', function (event) {
-            if (!form.checkValidity()) {
-                event.preventDefault();
-                event.stopPropagation();
-            }
-            form.classList.add('was-validated');
-        });
-    })();
-</script>
-
+<script type="text/javascript" src="${pageContext.request.contextPath}js/app.js"></script>
 </body>
 </html>
