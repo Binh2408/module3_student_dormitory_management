@@ -20,7 +20,7 @@
 
         <form id="contractForm" class="needs-validation" novalidate>
             <div class="row">
-                <!--               font hợp đồng-->
+                <!--font hợp đồng-->
                 <div class="col-sm-6">
                     <div class="row">
                         <label class="form-label col-sm-4">StudentCode</label>

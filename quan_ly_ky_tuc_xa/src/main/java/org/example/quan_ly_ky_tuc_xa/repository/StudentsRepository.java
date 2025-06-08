@@ -13,7 +13,7 @@ public class StudentsRepository implements IStudentsRepository{
         students.add(new Students(3, "Le Van C", 1003, 1, 345678901, 923456789, 10103));
     }
     @Override
-    public List<Students> getAll() {
+    public List<Students> findAll() {
         return  students;
     }
 }
