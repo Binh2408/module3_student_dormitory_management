@@ -1,0 +1,78 @@
+/* Đồng bộ chiều cao các thành phần header phía phải */
+header form input,
+header form button,
+header .btn {
+    height: 38px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    line-height: 1.5;
+    box-sizing: border-box;
+}
+
+.nav-link.nav-hover:hover {
+    color: #ffd9c0 !important;
+    text-decoration: underline;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.nav-link.active {
+    color: #ffd9c0 !important;
+    font-weight: bold;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    text-decoration: none; /* Loại bỏ gạch chân khi active */
+}
+
+/* Đảm bảo không có dấu tick trong navbar */
+.navbar-nav li:before {
+    content: none !important;
+}
+
+/* Cập nhật CSS cho carousel */
+.carousel,
+.carousel-inner,
+.carousel-item,
+.carousel-image-wrapper {
+    height: 80vh; /* Chiếm toàn bộ chiều cao màn hình */
+}
+
+.carousel-image-wrapper {
+    padding-top: 0;  /* Xóa tỷ lệ giả lập 16:9 */
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.carousel-image-wrapper img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; /* Hiển thị đủ chiều cao */
+    object-fit: cover; /* Phủ đầy vùng mà không bị méo */
+}
+
+
+#backToTop {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    font-size: 24px;
+    cursor: pointer;
+    display: none;
+    z-index: 999;
+    transition: background-color 0.3s, transform 0.3s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+#backToTop:hover {
+    background-color: #555;
+    transform: scale(1.1);
+}

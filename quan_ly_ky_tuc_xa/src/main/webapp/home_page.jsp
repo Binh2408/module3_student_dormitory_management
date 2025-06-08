@@ -11,153 +11,53 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Landing Page</title>
+  <title>Ký túc xá sinh viên</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
-  <style>
-    .nav-link.nav-hover:hover {
-      color: #ffd9c0 !important;
-      text-decoration: underline;
-      border-radius: 10px;
-
-    }
-
-    .nav-link.active {
-      text-decoration: underline;
-
-    }
-
-    .carousel {
-      max-height: 500px;
-      overflow: hidden;
-    }
-
-    .carousel-item img {
-      height: 500px;
-      object-fit: cover;
-    }
-    #backToTop {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      width: 50px;
-      height: 50px;
-      background-color: #333;
-      color: #fff;
-      border: none;
-      border-radius: 50%;
-      font-size: 24px;
-      cursor: pointer;
-      display: none;
-      z-index: 999;
-      transition: background-color 0.3s, transform 0.3s;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    }
-
-    #backToTop:hover {
-      background-color: #555;
-      transform: scale(1.1);
-    }
-
-
-  </style>
+  <link rel="stylesheet" href="css/home_page.css">
 </head>
 <body>
 
-<!-- Header -->
-<header class="navbar navbar-expand-lg navbar-light bg-white shadow-sm py-3">
-  <div class="container">
-    <!-- Logo -->
-    <a class="navbar-brand" href="#">
-      <img src="https://subscription.codegym.vn/wp-content/uploads/2024/08/Logo-codegym-Subscription_1.png"
-           alt="Logo" width="150">
-    </a>
+<%@ include file="header_navbar_footer/header.jsp" %>
 
-    <!-- Search form -->
-    <form class="d-flex ms-auto" role="search">
-      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn text-white" style="background-color: #E85728FF" type="submit">
-        <i class="bi bi-search"></i>
-      </button>
-    </form>
-    <!-- Login Button -->
-    <a href="sign_in" class="btn text-white" style="background-color: #E85728FF; margin-left: 10px">
-      Đăng nhập
-    </a>
-  </div>
-</header>
-
-<!-- Navbar (Navigation Menu) -->
-<nav class="navbar navbar-expand-lg" style="background-color: #E85728FF;">
-  <div class="container">
-    <button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu"
-            aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse justify-content-center" id="navbarMenu">
-      <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link text-white nav-hover active" aria-current="page" href="#">Trang chủ</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-white nav-hover" href="#">Giới thiệu</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-white nav-hover" href="#">Liên hệ</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-white nav-hover" href="#">Thông báo</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-white nav-hover" href="#">Góp ý</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-white nav-hover" href="#">Hợp đồng</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
-
-<!--SLIDE-BAR-->
+<!-- SLIDE-BAR -->
 <div class="row">
-  <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
-    <div class="carousel-indicators">
-      <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active"
-              aria-current="true" aria-label="Slide 1"></button>
-      <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1"
-              aria-label="Slide 2"></button>
-      <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2"
-              aria-label="Slide 3"></button>
+    <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel" data-bs-interval="5000">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active"
+                    aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1"
+                    aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2"
+                    aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active" data-bs-interval="5000">
+                <div class="carousel-image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1920&h=1080" class="d-block w-100" alt="Ký túc xá hiện đại">
+                </div>
+            </div>
+            <div class="carousel-item" data-bs-interval="5000">
+                <div class="carousel-image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1709805619372-40de3f158e83?q=80&w=2095&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="d-block w-100" alt="Ký túc xá ban đêm">
+                </div>
+            </div>
+            <div class="carousel-item" data-bs-interval="5000">
+                <div class="carousel-image-wrapper">
+                    <img src="http://oldquarterviewhanoihostel.com/images/upload/209202312370ATU04850%20copy.jpg" class="d-block w-100" alt="Khuôn viên ký túc xá">
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
     </div>
-    <div class="carousel-inner">
-      <div class="carousel-item active" data-bs-interval="10000">
-        <img src="https://cdn.codegym.vn/wp-content/uploads/2022/06/trang-chu-2-7.jpg" class="d-block w-100"
-             alt="...">
-      </div>
-      <div class="carousel-item" data-bs-interval="2000">
-        <img src="https://channel.mediacdn.vn/2021/9/30/photo-2-1632975337484927106899.jpg"
-             class="d-block w-100"
-             alt="...">
-      </div>
-      <div class="carousel-item">
-        <img src="https://cdn.codegym.vn/wp-content/uploads/2022/04/Hoc-vien-Banner-CG.jpg"
-             class="d-block w-100"
-             alt="...">
-      </div>
-    </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
-  </div>
 </div>
 
 <!--NOTIFICATION-->
@@ -246,9 +146,7 @@
       <a href="#" class="btn btn-outline-danger px-4">XEM THÊM TIN TỨC</a>
     </div>
   </section>
-
 </div>
-
 
 <!--EVENT-->
 <div class="row">
@@ -292,62 +190,11 @@
   </section>
 </div>
 
-
 <!--FOOTER-->
-<footer class="bg-white border-top pt-3 pb-4">
-  <div class="container text-center text-md-start">
-    <!-- Dòng bản quyền -->
-    <p class="text-muted small text-center mb-4">© 2025 Bản quyền thuộc về CODEGYM - HỆ THỐNG ĐÀO TẠO LẬP TRÌNH HIỆN
-      ĐẠI.</p>
-
-    <!-- Dòng địa chỉ -->
-    <div class="row text-start d-flex justify-content-center">
-      <!-- Hà Nội -->
-      <div class="col-6 col-md-2 mb-3">
-        <h6 class="text-danger fw-bold border-bottom border-danger pb-1">HÀ NỘI</h6>
-        <p class="mb-1 small">23.TT01, Khu đô thị Mon City, Mỹ Đình 2</p>
-        <p class="mb-1 small">Điện thoại: (024) 7300 5588</p>
-        <p class="mb-0 small">Email: <a href="mailto:info@codegym.vn">info@codegym.vn</a></p>
-      </div>
-      <!-- TP.HCM -->
-      <div class="col-6 col-md-2 mb-3">
-        <h6 class="text-danger fw-bold border-bottom border-danger pb-1">SÀI GÒN</h6>
-        <p class="mb-1 small">152 Điện Biên Phủ, Phường 25, Q. Bình Thạnh</p>
-        <p class="mb-1 small">Điện thoại: (028) 7300 5588</p>
-        <p class="mb-0 small">Email: <a href="mailto:info@codegym.vn">info@codegym.vn</a></p>
-      </div>
-      <!-- Đà Nẵng -->
-      <div class="col-6 col-md-2 mb-3">
-        <h6 class="text-danger fw-bold border-bottom border-danger pb-1">ĐÀ NẴNG</h6>
-        <p class="mb-1 small">295 Nguyễn Tất Thành, Quận Hải Châu</p>
-        <p class="mb-1 small">Điện thoại: (0236) 730 0999</p>
-        <p class="mb-0 small">Email: <a href="mailto:info@codegym.vn">info@codegym.vn</a></p>
-      </div>
-
-    </div>
-  </div>
-</footer>
-
+<%@include file="header_navbar_footer/footer.jsp"%>
 <button id="backToTop" title="Lên đầu trang">↑</button>
-
 </body>
 
-<script>
-  // Đợi DOM load xong
-  document.addEventListener('DOMContentLoaded', function () {
-    const navLinks = document.querySelectorAll('.nav-link');
-
-    navLinks.forEach(link => {
-      link.addEventListener('click', function () {
-        // Xoá 'active' ở tất cả link
-        navLinks.forEach(item => item.classList.remove('active'));
-
-        // Thêm 'active' vào link được click
-        this.classList.add('active');
-      });
-    });
-  });
-</script>
 <script>
   const backToTopBtn = document.getElementById("backToTop");
 
@@ -366,8 +213,6 @@
     });
   });
 </script>
-
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </html>
-
