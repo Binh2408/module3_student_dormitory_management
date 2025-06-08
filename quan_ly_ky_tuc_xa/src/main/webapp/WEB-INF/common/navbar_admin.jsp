@@ -7,7 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <header class="row">
-    <h1 class="text-center" style="color: #4CAF50">DORMITORY MANAGEMENT SYSTEM</h1>
+    <h1 class="text-center" style="color: #4CAF50">HỆ THỐNG QUẢN LÝ KÝ TÚC XÁ</h1>
 </header>
 <nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
@@ -20,28 +20,28 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <button class="btn btn-outline-info m-1"
-                            onclick="window.location.href='/admin?action=StudentManagement'">StudentManagement
+                    <button class="btn btn-outline-success m-1"
+                            onclick="window.location.href='/admin?action=StudentManagement'">QuảnLýSinhViên
                     </button>
                 </li>
                 <li class="nav-item">
-                    <button class="btn btn-outline-info m-1"
-                            onclick="window.location.href='/admin?action=ContractManagement'">ContractManagement
+                    <button class="btn btn-outline-success m-1"
+                            onclick="window.location.href='/admin?action=ContractManagement'">QuảnLýHợpĐồng
                     </button>
                 </li>
                 <li class="nav-item">
-                    <button class="btn btn-outline-info m-1"
-                            onclick="window.location.href='/admin?action=ViolationManagement'">ViolationManagement
+                    <button class="btn btn-outline-success m-1"
+                            onclick="window.location.href='/admin?action=ViolationManagement'">QuảnLýViPhạm
                     </button>
                 </li>
                 <li class="nav-item">
-                    <button class="btn btn-outline-info m-1"
-                            onclick="window.location.href='/admin?action=RevenueStatistics'">RevenueStatistics
+                    <button class="btn btn-outline-success m-1"
+                            onclick="window.location.href='/admin?action=RevenueStatistics'">ThốngKêDoanhThu
                     </button>
                 </li>
                 <li class="nav-item">
-                    <button class="btn btn-outline-info m-1"
-                            onclick="window.location.href='/admin?action=RoomManagement'">RoomManagement
+                    <button class="btn btn-outline-success m-1"
+                            onclick="window.location.href='/admin?action=RoomManagement'">QuảnLýPhòng
                     </button>
                 </li>
             </ul>

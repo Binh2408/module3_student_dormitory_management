@@ -6,7 +6,6 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
-
 @WebServlet(urlPatterns = "/admin")
 public class AdminController extends HttpServlet {
     @Override

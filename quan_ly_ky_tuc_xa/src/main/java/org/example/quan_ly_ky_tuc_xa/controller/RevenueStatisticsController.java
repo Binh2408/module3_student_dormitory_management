@@ -11,6 +11,6 @@ import java.io.IOException;
 public class RevenueStatisticsController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/WEB-INF/revenue_statistics/revenue_statistics.jsp").forward(req,resp);
+        req.getRequestDispatcher("/WEB-INF/revenue_statistics/display.jsp").forward(req,resp);
     }
 }

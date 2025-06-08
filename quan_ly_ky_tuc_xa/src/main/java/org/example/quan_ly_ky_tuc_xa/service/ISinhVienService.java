@@ -1,0 +1,9 @@
+package org.example.quan_ly_ky_tuc_xa.service;
+
+import org.example.quan_ly_ky_tuc_xa.dto.SinhVienDtoResponse;
+
+import java.util.List;
+
+public interface ISinhVienService {
+    List<SinhVienDtoResponse> findAll();
+}
