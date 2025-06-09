@@ -19,6 +19,13 @@
             })
         }
     })
+    $(document).ready(function () {
+        $('#tableHopDong').dataTable({
+            "dom": 'lrtip',
+            "lengthChange": false,
+            "pageLength": 2
+        })
+    })
 
 </script>
 <body>
@@ -29,7 +36,7 @@
     <button class="btn btn-success mb-3" onclick="window.location.href='contract?action=add'">
         <i class="fa fa-plus"></i> Thêm MớI Hợp Đồng
     </button>
-    <table class="table table-sm table-bordered text-center table-striped">
+    <table class="table table-sm table-bordered text-center table-striped" id="tableHopDong">
         <thead class="table-light">
         <tr>
             <th>NO</th>
