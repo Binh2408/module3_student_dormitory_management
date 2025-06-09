@@ -17,6 +17,4 @@ public interface IBienBanViPhamRepository {
 
     boolean remove(int id);
 
-    List<BienBanViPhamDtoReponse> findByNameAndPrice(int price, String name);
-
 }

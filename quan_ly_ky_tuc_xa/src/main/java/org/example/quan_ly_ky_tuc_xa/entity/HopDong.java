@@ -1,6 +1,6 @@
 package org.example.quan_ly_ky_tuc_xa.entity;
 
-import java.sql.Date;
+
 import java.time.LocalDate;
 
 public class HopDong {

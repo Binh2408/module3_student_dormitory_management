@@ -14,4 +14,13 @@ public interface IBienBanViPhamService {
 
     boolean remove(int id);
 
+    default BienBanViPhamDtoReponse findById(int id) {
+        for (BienBanViPhamDtoReponse bienBanViPhamDtoReponse : findAll()) {
+            if (bienBanViPhamDtoReponse.getBienBanId() == id) {
+                return bienBanViPhamDtoReponse;
+            }
+        }
+        return null;
+    }
+
 }

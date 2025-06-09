@@ -12,6 +12,15 @@ public class BienBanViPhamDtoReponse {
     public BienBanViPhamDtoReponse() {
     }
 
+    public BienBanViPhamDtoReponse(String tenSinhVien,
+                                   String tenLoaiViPham, String mucDoViPham, LocalDate thoiGianViPham) {
+        this.tenSinhVien = tenSinhVien;
+        this.tenLoaiViPham = tenLoaiViPham;
+        this.mucDoViPham = mucDoViPham;
+        this.thoiGianViPham = thoiGianViPham;
+    }
+
+
     public BienBanViPhamDtoReponse(int bienBanId, String tenSinhVien,
                                    String tenLoaiViPham, String mucDoViPham, LocalDate thoiGianViPham) {
         this.bienBanId = bienBanId;

@@ -7,6 +7,7 @@
     <div class="card shadow p-4" style="width: 50%">
         <h2 class="text-center text-success mb-4">Biên Bản Vi Phạm</h2>
         <form method="post" id="formViPham" class="needs-validation" novalidate>
+            <input type="hidden" name="bienBanId" value="${bienBanViPhamDtoReponse.bienBanId}">
             <div class="row">
                 <div class="col-12">
                     <div class="mx-auto" style="max-width: 700px;">
@@ -20,7 +21,10 @@
                                         <option></option>
                                         <c:forEach items="${sinhVienDtoResponseList}" var="sinhVien" varStatus="status">
                                             <option value="${sinhVien.sinhVienId}"
-                                                    data-tai-khoan="${sinhVien.userName}">
+                                                    data-tai-khoan="${sinhVien.userName}"
+                                                    <c:if test="${sinhVien.tenSinhVien==bienBanViPhamDtoReponse.tenSinhVien}">
+                                                        selected
+                                                    </c:if>>
                                                 SV: ${sinhVien.tenSinhVien}
                                             </option>
                                         </c:forEach>
@@ -51,7 +55,10 @@
                                             onblur="kiemTraDuLieu()">
                                         <option></option>
                                         <c:forEach items="${loaiViPhamList}" var="loaiViPham">
-                                            <option value="${loaiViPham.loaiViPhamId}"> ${loaiViPham.tenLoaiViPham}</option>
+                                            <option value="${loaiViPham.loaiViPhamId}"
+                                                    <c:if test="${bienBanViPhamDtoReponse.tenLoaiViPham==loaiViPham.tenLoaiViPham}">
+                                                        selected
+                                                    </c:if>> ${loaiViPham.tenLoaiViPham}</option>
                                         </c:forEach>
                                     </select>
                                     <span id="loaiViPhamIcon"></span>
@@ -68,7 +75,10 @@
                                             onblur="kiemTraDuLieu()">
                                         <option value="">-- Chọn mức độ --</option>
                                         <c:forEach items="${mucDoViPhamList}" var="mucDoViPham">
-                                            <option value="${mucDoViPham.mucDoViPhamId}">${mucDoViPham.tenMucDoViPham}</option>
+                                            <option value="${mucDoViPham.mucDoViPhamId}"
+                                                    <c:if test="${mucDoViPham.tenMucDoViPham==bienBanViPhamDtoReponse.mucDoViPham}">
+                                                        selected
+                                                    </c:if>>${mucDoViPham.tenMucDoViPham}</option>
                                         </c:forEach>
                                     </select>
                                     <span id="mucDoViPhamIcon"></span>
@@ -82,7 +92,7 @@
                             <div class="col-sm-8">
                                 <div style="display: flex">
                                     <input name="thoiGianViPham" type="date" class="form-control" required
-                                           value="${contract.startDay}" id="thoiGianViPham" onblur="kiemTraDuLieu()">
+                                           value="${bienBanViPhamDtoReponse.thoiGianViPham}" id="thoiGianViPham" onblur="kiemTraDuLieu()">
                                     <span id="thoiGianViPhamIcon"></span>
                                 </div>
                                 <p id="thoiGianViPhamLoi"></p>
@@ -92,12 +102,11 @@
                         <div class="row mt-4 justify-content-center">
                             <div class="col-6 col-md-4">
                                 <button type="submit" class="btn btn-outline-success w-100" id="taoMoiBienBan"
-                                       disabled>Tạo Mới
+                                        disabled>Thay Đổi
                                 </button>
                             </div>
                             <div class="col-6 col-md-4">
-                                <button type="button" class="btn btn-outline-danger w-100"
-                                        onclick="window.location.href='contract'">Thoát
+                                <button type="reset" class="btn btn-outline-danger w-100">Reset
                                 </button>
                             </div>
                         </div>
@@ -149,11 +158,13 @@
             hienLoi("taiKhoanSinhVien", "Không được để trống");
         } else hienThanhCong("taiKhoanSinhVien");
 
-        if (loaiViPham === "") {hienLoi("loaiViPham", "Không được để trống");}
-        else hienThanhCong("loaiViPham");
+        if (loaiViPham === "") {
+            hienLoi("loaiViPham", "Không được để trống");
+        } else hienThanhCong("loaiViPham");
 
-        if (mucDoViPham === ""){hienLoi("mucDoViPham", "Không được để trống");}
-        else hienThanhCong("mucDoViPham");
+        if (mucDoViPham === "") {
+            hienLoi("mucDoViPham", "Không được để trống");
+        } else hienThanhCong("mucDoViPham");
 
         if (thoiGianViPham === "") {
             hienLoi("thoiGianViPham", "Không được để trống");
@@ -167,9 +178,9 @@
 
         let isValid = sinhVien !== "" && taiKhoanSinhVien !== "" && loaiViPham !== "" &&
             mucDoViPham !== "" && thoiGianViPham !== "" &&
-            namHienTai - namViPham < 1 && thoiGianViPhamDate > thoiGianHienTai
+            namHienTai - namViPham < 1 && thoiGianViPhamDate < thoiGianHienTai
 
-        document.getElementById("taoMoiBienBan").disabled = isValid;
+        document.getElementById("taoMoiBienBan").disabled = !isValid;
     }
 
 
@@ -180,6 +191,14 @@
                 allowClear: true
             });
         }
+        // 👉 Gọi hàm để hiển thị lại tài khoản và giá thuê nếu có sẵn
+        let sinhVienSelect = document.getElementById("sinhVien");
+        if (sinhVienSelect.value) {
+            hienThiThongTinSinhVien(sinhVienSelect);
+        }
+        <%--document.getElementById("thoiGianViPham").value =`${bienBanViPhamDtoReponse.thoiGianViPham}`--%>
+
+        kiemTraDuLieu();
     })
 
 </script>

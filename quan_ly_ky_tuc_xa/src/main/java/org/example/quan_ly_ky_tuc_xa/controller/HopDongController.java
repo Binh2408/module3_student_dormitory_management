@@ -3,7 +3,7 @@ package org.example.quan_ly_ky_tuc_xa.controller;
 import org.example.quan_ly_ky_tuc_xa.dto.HopDongDtoResponse;
 import org.example.quan_ly_ky_tuc_xa.dto.SinhVienDtoResponse;
 import org.example.quan_ly_ky_tuc_xa.entity.HopDong;
-import org.example.quan_ly_ky_tuc_xa.entity.Phong;
+
 import org.example.quan_ly_ky_tuc_xa.service.*;
 
 import javax.servlet.ServletException;
@@ -21,7 +21,7 @@ import java.util.List;
 public class HopDongController extends HttpServlet {
     private final IHopDongService hopDongService = new HopDongService();
     private final ISinhVienService sinhVienService = new SinhVienService();
-    private final IPhongService phongService = new PhongService();
+
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -48,9 +48,7 @@ public class HopDongController extends HttpServlet {
         int updateId = Integer.parseInt(req.getParameter("updateHopDongId"));
         HopDongDtoResponse hopDongDtoResponse = hopDongService.timKiemHopDongTheoId(updateId);
         req.setCharacterEncoding("UTF-8");
-        List<Phong> phongList = phongService.findAll();
         List<SinhVienDtoResponse> sinhVienDtoResponseList = sinhVienService.findAll();
-        req.setAttribute("phongList", phongList);
         req.setAttribute("sinhVienDtoResponseList", sinhVienDtoResponseList);
         if (hopDongDtoResponse != null) {
             req.setAttribute("hopDongDtoResponse", hopDongDtoResponse);
@@ -60,9 +58,7 @@ public class HopDongController extends HttpServlet {
 
     private void showFormCreate(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
-        List<Phong> phongList = phongService.findAll();
         List<SinhVienDtoResponse> sinhVienDtoResponseList = sinhVienService.findAll();
-        req.setAttribute("phongList", phongList);
         req.setAttribute("sinhVienDtoResponseList", sinhVienDtoResponseList);
         req.getRequestDispatcher("/WEB-INF/contracts/create.jsp").forward(req, resp);
     }

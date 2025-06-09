@@ -11,6 +11,12 @@ public class BienBanViPham {
 
     public BienBanViPham() {
     }
+    public BienBanViPham( int maSinhVienViPham, int maLoaiViPham, int maMucDoViPham, LocalDate thoiGianViPham) {
+        this.maSinhVienViPham = maSinhVienViPham;
+        this.maLoaiViPham = maLoaiViPham;
+        this.maMucDoViPham = maMucDoViPham;
+        this.thoiGianViPham = thoiGianViPham;
+    }
 
     public BienBanViPham(int maBienBanViPham, int maSinhVienViPham, int maLoaiViPham, int maMucDoViPham, LocalDate thoiGianViPham) {
         this.maBienBanViPham = maBienBanViPham;

@@ -20,15 +20,6 @@
         }
     })
 
-    document.addEventListener("DOMContentLoaded", function () {
-        let deleteButtons = document.querySelectorAll(".btn-delete");
-        let deleteContractCodeInput = document.getElementById("deleteContractCode");
-        for (let button of deleteButtons) {
-            button.addEventListener("click", function () {
-                deleteContractCodeInput.value = this.getAttribute("data-id")
-            })
-        }
-    })
 </script>
 <body>
 <jsp:include page="/WEB-INF/common/navbar_admin.jsp"/>

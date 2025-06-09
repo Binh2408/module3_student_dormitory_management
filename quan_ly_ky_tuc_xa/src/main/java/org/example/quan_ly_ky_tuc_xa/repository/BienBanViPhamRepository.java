@@ -1,5 +1,6 @@
 package org.example.quan_ly_ky_tuc_xa.repository;
 
+
 import org.example.quan_ly_ky_tuc_xa.dto.BienBanViPhamDtoReponse;
 import org.example.quan_ly_ky_tuc_xa.entity.BienBanViPham;
 
@@ -14,7 +15,7 @@ public class BienBanViPhamRepository implements IBienBanViPhamRepository {
             " from bien_ban_vi_pham bbvp \n" +
             " join sinh_vien sv on bbvp.ma_sinh_vien_vi_pham=sv.ma_sinh_vien \n" +
             " join loai_vi_pham lvp on lvp.ma_vi_pham=bbvp.ma_loai_vi_pham \n" +
-            " join muc_do_vi_pham mdvp on mdvp.ma_muc_do_vi_pham=bbvp.ma_muc_do_vi_pham";
+            " join muc_do_vi_pham mdvp on mdvp.ma_muc_do_vi_pham=bbvp.ma_muc_do_vi_pham  where bbvp.is_delete=0";
 
     private static final String INSERT_INTO = "insert into bien_ban_vi_pham" +
             " (ma_sinh_vien_vi_pham,ma_loai_vi_pham,ma_muc_do_vi_pham,thoi_gian_vi_pham)value(\n" +
@@ -25,6 +26,7 @@ public class BienBanViPhamRepository implements IBienBanViPhamRepository {
             " thoi_gian_vi_pham=? where ma_bien_ban_vi_pham=?;";
 
     private static final String DELETE = "update bien_ban_vi_pham set is_delete =1 where ma_bien_ban_vi_pham =?;";
+
 
     @Override
     public List<BienBanViPhamDtoReponse> findAll() {
@@ -38,12 +40,13 @@ public class BienBanViPhamRepository implements IBienBanViPhamRepository {
                 String tenViPham = resultSet.getString("ten_vi_pham");
                 String tenMucDoViPham = resultSet.getString("ten_muc_do_vi_pham");
                 Date sqlThoiGianViPham = resultSet.getDate("thoi_gian_vi_pham");
-                LocalDate thoiGianViPham = (sqlThoiGianViPham != null) ? sqlThoiGianViPham.toLocalDate() : null;
-                BienBanViPhamDtoReponse bienBanViPhamDtoReponse = new BienBanViPhamDtoReponse(maBienBanViPham, tenSinhVien, tenViPham, tenMucDoViPham, thoiGianViPham);
-                bienBanViPhamDtoReponseList.add(bienBanViPhamDtoReponse);
+                LocalDate thopGianViPham = sqlThoiGianViPham != null ? sqlThoiGianViPham.toLocalDate() : null;
+                bienBanViPhamDtoReponseList.add(new BienBanViPhamDtoReponse(maBienBanViPham, tenSinhVien,
+                        tenViPham, tenMucDoViPham, thopGianViPham));
             }
+
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            System.out.println("loi ket noi db");
         }
         return bienBanViPhamDtoReponseList;
     }
@@ -94,8 +97,4 @@ public class BienBanViPhamRepository implements IBienBanViPhamRepository {
         return false;
     }
 
-    @Override
-    public List<BienBanViPhamDtoReponse> findByNameAndPrice(int price, String name) {
-        return null;
-    }
 }
