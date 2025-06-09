@@ -19,6 +19,15 @@
             })
         }
     })
+
+    $(document).ready(function () {
+        $('#tableBienBan').dataTable({
+            "dom": 'lrtip',
+            "lengthChange": false,
+            "pageLength": 2
+        })
+    })
+
 </script>
 <body>
 <jsp:include page="/WEB-INF/common/navbar_admin.jsp"/>
@@ -26,11 +35,28 @@
 <!-- QUẢN LÝ VI PHẠM -->
 <div class="container container-section" id="violation-section">
     <h2 class="text-center mt-3 mb-4 text-success">Quản Lý Vi Phạm</h2>
-    <button class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#createContractModal"
-            onclick="window.location.href='violationRecord?action=add'">
-        <i class="fa fa-plus"></i> Thêm Biên Bản
-    </button>
-    <table class="table table-sm table-bordered text-center table-striped">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <!-- Nút tạo mới bên trái -->
+        <button class="btn btn-success" onclick="window.location.href='violationRecord?action=add'">
+            <i class="fa fa-plus"></i> Create New Product
+        </button>
+
+        <!-- Form tìm kiếm bên phải -->
+        <form class="d-flex" role="search" method="post" action="violationRecord?action=search">
+            <input class="form-control me-2" type="search" placeholder="Search by name" name="search" aria-label="Search">
+
+            <select name="manufacturer_id" class="form-control me-2" aria-label="Search">
+                <option value="${0}">-- Chọn giá thấp nhất --</option>
+                <c:forEach items="${manufacturerList}" var="manufacturer">
+                    <option value="${manufacturer.id}">${manufacturer.name}</option>
+                </c:forEach>
+            </select>
+
+            <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+    </div>
+
+    <table class="table table-sm table-bordered text-center table-striped" id="tableBienBan">
         <thead class="table-light">
         <tr>
             <th>No</th>

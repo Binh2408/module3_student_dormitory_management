@@ -27,6 +27,8 @@ public class BienBanViPhamRepository implements IBienBanViPhamRepository {
 
     private static final String DELETE = "update bien_ban_vi_pham set is_delete =1 where ma_bien_ban_vi_pham =?;";
 
+    private static final String SEARCH = "call search_by_sinh_vien_and_loai_vi_pham(\"huy\",0)";
+
 
     @Override
     public List<BienBanViPhamDtoReponse> findAll() {
@@ -95,6 +97,11 @@ public class BienBanViPhamRepository implements IBienBanViPhamRepository {
             System.out.println("loi ket noi db");
         }
         return false;
+    }
+
+    @Override
+    public List<BienBanViPhamDtoReponse> searchBySinhVienVaLoaiViPham() {
+        return null;
     }
 
 }

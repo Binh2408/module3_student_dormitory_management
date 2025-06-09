@@ -17,4 +17,5 @@ public interface IBienBanViPhamRepository {
 
     boolean remove(int id);
 
+    List<BienBanViPhamDtoReponse> searchBySinhVienVaLoaiViPham();
 }
