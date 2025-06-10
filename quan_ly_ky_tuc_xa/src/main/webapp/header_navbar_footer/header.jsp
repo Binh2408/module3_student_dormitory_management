@@ -71,8 +71,8 @@
         <i class="bi bi-person-circle"></i>
       </button>
       <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
-        <li><a class="dropdown-item" href="#">Thông tin cá nhân</a></li>
-        <li><a class="dropdown-item" href="logout">Đăng xuất</a></li>
+        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/students">Thông tin cá nhân</a></li>
+        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/logout">Đăng xuất</a></li>
       </ul>
     </div>
 
@@ -117,7 +117,7 @@
           <a class="nav-link text-white nav-hover <%= currentPage.contains("gop-y") ? "active" : "" %>" href="gop-y.jsp">Góp ý</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white nav-hover <%= currentPage.contains("hop-dong") ? "active" : "" %>" href="hop-dong.jsp">Hợp đồng</a>
+          <a class="nav-link text-white nav-hover <%= currentPage.contains("hop-dong") ? "active" : "" %>" href="/contracts">Hợp đồng</a>
         </li>
       </ul>
     </div>

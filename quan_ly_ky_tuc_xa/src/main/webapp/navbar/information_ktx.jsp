@@ -52,7 +52,7 @@
     <div class="row align-items-center mb-5">
         <div class="col-md-6 order-md-1">
             <div class="img-container">
-                <img src="https://ktxdn.vn/wp-content/uploads/2015/09/BannerKhuTay.jpg" class="img-fluid"
+                <img src="https://www.ktxhcm.edu.vn/uploads/banners/ktx-1.jpg" class="img-fluid"
                      alt="Ký túc xá Phía Tây">
             </div>
         </div>
@@ -76,7 +76,7 @@
     <div class="row align-items-center">
         <div class="col-md-6 order-md-2">
             <div class="img-container">
-                <img src="https://ktxdn.vn/wp-content/uploads/2015/09/KhuDong.jpg" class="img-fluid"
+                <img src="https://www.ktxhcm.edu.vn/uploads/banners/ktx-2.jpg" class="img-fluid"
                      alt="Ký túc xá Phía Đông">
             </div>
         </div>

@@ -1,6 +1,7 @@
 package org.example.quan_ly_ky_tuc_xa.repository;
 
 import org.example.quan_ly_ky_tuc_xa.dto.HopDongDtoResponse;
+import org.example.quan_ly_ky_tuc_xa.dto.contract.ThongTinHopDongDTO;
 import org.example.quan_ly_ky_tuc_xa.entity.HopDong;
 
 import java.sql.*;
@@ -22,6 +23,20 @@ public class HopDongRepository implements IHopDongRepository {
 
     private static final String DELETE = "update hop_dong set is_delete=1 where ma_hop_dong=?";
 
+    private static final String FIND_CONTRACT_BY_USERNAME = "select \n" +
+            "    hd.ma_hop_dong, p.ten_phong,  lp.ten_loai_phong,  p.so_nguoi_do_da,  p.so_nguoi_hien_tai, \n" +
+            "    p.gia_moi_thang as gia_moi_thang, ttsd.ten_trang_thai_su_dung, hd.thoi_gian_bat_dau, hd.thoi_gian_ket_thuc\n" +
+            "from tai_khoan tk\n" +
+            "join sinh_vien sv on sv.ma_tai_khoan = tk.ma_tai_khoan\n" +
+            "join hop_dong hd on sv.ma_sinh_vien = hd.ma_sinh_vien\n" +
+            "join phong p on p.ma_phong = hd.ma_phong\n" +
+            "join loai_phong lp on p.ma_loai_phong = lp.ma_loai_phong\n" +
+            "join trang_thai_su_dung ttsd on p.ma_trang_thai_su_dung = ttsd.ma_trang_thai_su_dung\n" +
+            "where tk.user_name = ?\n" +
+            "  and tk.is_delete = 0 \n" +
+            "  and sv.is_delete = 0 \n" +
+            "  and hd.is_delete = 0\n" +
+            "LIMIT 1;";
     @Override
     public List<HopDongDtoResponse> findAll() {
         List<HopDongDtoResponse> hopDongDtoResponseList = new ArrayList<>();
@@ -95,5 +110,31 @@ public class HopDongRepository implements IHopDongRepository {
     @Override
     public List<HopDongDtoResponse> findByNameAndPrice(int price, String name) {
         return null;
+    }
+
+    @Override
+    public ThongTinHopDongDTO findContractByUsername(String username) {
+        ThongTinHopDongDTO result = null;
+        try (Connection conn = BaseRepository.getConnectDB();
+             PreparedStatement ps = conn.prepareStatement(FIND_CONTRACT_BY_USERNAME)) {
+            ps.setString(1, username);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                result = new ThongTinHopDongDTO(
+                        rs.getInt("ma_hop_dong"),
+                        rs.getString("ten_phong"),
+                        rs.getString("ten_loai_phong"),
+                        rs.getInt("so_nguoi_do_da"),
+                        rs.getInt("so_nguoi_hien_tai"),
+                        rs.getDouble("gia_moi_thang"),
+                        rs.getString("ten_trang_thai_su_dung"),
+                        rs.getTimestamp("thoi_gian_bat_dau").toLocalDateTime(),
+                        rs.getTimestamp("thoi_gian_ket_thuc").toLocalDateTime()
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 }

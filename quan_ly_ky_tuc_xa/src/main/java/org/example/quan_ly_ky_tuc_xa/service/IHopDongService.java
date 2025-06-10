@@ -2,6 +2,7 @@ package org.example.quan_ly_ky_tuc_xa.service;
 
 
 import org.example.quan_ly_ky_tuc_xa.dto.HopDongDtoResponse;
+import org.example.quan_ly_ky_tuc_xa.dto.contract.ThongTinHopDongDTO;
 import org.example.quan_ly_ky_tuc_xa.entity.HopDong;
 
 import java.util.List;
@@ -23,4 +24,7 @@ public interface IHopDongService {
         }
         return null;
     }
+
+    ThongTinHopDongDTO findContractByUsername(String username);
+
 }
