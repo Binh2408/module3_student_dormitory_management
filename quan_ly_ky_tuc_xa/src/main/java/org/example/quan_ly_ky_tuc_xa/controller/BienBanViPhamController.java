@@ -57,9 +57,9 @@ public class BienBanViPhamController extends HttpServlet {
     private void deleteBienBan(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         int deleteBienBanId = Integer.parseInt(req.getParameter("deleteContractId"));
         boolean isDeleteSuccess = bienBanViPhamService.remove(deleteBienBanId);
-        String mess = "delete success";
+        String mess = "Delete Success";
         if (!isDeleteSuccess) {
-            mess = "not delete success";
+            mess = "Not Delete Success";
         }
         resp.sendRedirect("/violationRecord?message=" + mess);
     }
@@ -143,8 +143,11 @@ public class BienBanViPhamController extends HttpServlet {
         LocalDate ngayViPham = LocalDate.parse(thoiGianViPham, dateTimeFormatter);
         BienBanViPham bienBanViPham = new BienBanViPham(maBienBanViPham, maSinhVienViPham, maLoaiViPham, maMucDoViPham, ngayViPham);
         boolean isEditSuccess = bienBanViPhamService.update(bienBanViPham);
-        String message = isEditSuccess ? "Thay đổi biên bản thành công!" : "Thay đổi biên bản thất bại!";
-        resp.sendRedirect("violationRecord?message=" + message);
+        String mess = "Update Success";
+        if (!isEditSuccess) {
+            mess = "Not Update Success";
+        }
+        resp.sendRedirect("violationRecord?message=" + mess);
     }
 
     private void save(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -156,10 +159,10 @@ public class BienBanViPhamController extends HttpServlet {
         LocalDate ngayViPham = LocalDate.parse(thoiGianViPham, dateTimeFormatter);
         BienBanViPham bienBanViPham = new BienBanViPham(maSinhVienViPham, maLoaiViPham, maMucDoViPham, ngayViPham);
         boolean isCreateSuccess = bienBanViPhamService.save(bienBanViPham);
-        String mess = "Thêm Mới Thành Công";
+        String mess = "Create Success";
         if (!isCreateSuccess) {
-            mess = "Thêm Mới Thất Bại";
+            mess = "Not Create success";
         }
-        resp.sendRedirect("/violationRecord?message="+mess);
+        resp.sendRedirect("/violationRecord?message=" + mess);
     }
 }

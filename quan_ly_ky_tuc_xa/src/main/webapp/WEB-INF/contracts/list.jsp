@@ -24,6 +24,12 @@
                 deleteContractCodeInput.value = this.getAttribute("data-id")
             })
         }
+
+        const toastElement = document.getElementById('message');
+        if (toastElement) {
+            const toast = new bootstrap.Toast(toastElement);
+            toast.show();
+        }
     })
     $(document).ready(function () {
         $('#tableHopDong').dataTable({
@@ -38,8 +44,20 @@
 <jsp:include page="/WEB-INF/common/navbar_admin.jsp"/>
 <!-- QUẢN LÝ HỢP ĐỒNG -->
 <div class="container container-section" id="contract-section">
+    <c:if test="${not empty param.message}">
+        <div class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive"
+             aria-atomic="true" id="message">
+            <div class="d-flex">
+                <div class="toast-body">
+                        ${param.message}
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                        aria-label="Close"></button>
+            </div>
+        </div>
+    </c:if>
     <h2 class="text-center mt-3 mb-4 text-success">Quản Lý Hợp Đồng</h2>
-    <div></div>
+
     <div class="d-flex justify-content-between align-items-center mb-3">
         <!-- Nút tạo mới bên trái -->
         <button class="btn btn-success mb-3" onclick="window.location.href='contract?action=add'">
@@ -51,10 +69,10 @@
             <input class="form-control me-2" type="search" placeholder="Search by name" name="search"
                    aria-label="Search">
 
-            <select name="loai_vi_pham_id" class="form-control me-2" aria-label="Search">
-                <option value="${0}">-- Chọn loai vi pham --</option>
-                <c:forEach items="${loaiViPhamList}" var="loaiViPham">
-                    <option value="${loaiViPham.loaiViPhamId}">${loaiViPham.tenLoaiViPham}</option>
+            <select name="phong_id" class="form-control me-2" aria-label="Search">
+                <option value="${0}">-- Chọn Phòng --</option>
+                <c:forEach items="${phongList}" var="phong">
+                    <option value="${phong.idPhong}">${phong.tenPhong}</option>
                 </c:forEach>
             </select>
 

@@ -43,8 +43,6 @@
 
 <!-- QUẢN LÝ VI PHẠM -->
 <div class="container container-section" id="violation-section">
-    <h2 class="text-center mt-3 mb-4 text-success">Quản Lý Vi Phạm</h2>
-
     <c:if test="${not empty param.message}">
         <div class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive"
              aria-atomic="true" id="message">
@@ -57,6 +55,8 @@
             </div>
         </div>
     </c:if>
+    <h2 class="text-center mt-3 mb-4 text-success">Quản Lý Vi Phạm</h2>
+
     <div class="d-flex justify-content-between align-items-center mb-3">
         <!-- Nút tạo mới bên trái -->
         <button class="btn btn-success" onclick="window.location.href='violationRecord?action=add'">
@@ -133,6 +133,5 @@
         </div>
     </div>
 </div>
-
 </body>
 </html>

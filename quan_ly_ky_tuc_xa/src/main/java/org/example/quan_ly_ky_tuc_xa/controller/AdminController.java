@@ -28,6 +28,10 @@ public class AdminController extends HttpServlet {
                     resp.sendRedirect("revenueStatistics");
                     break;
                 case "RoomManagement":
+                    resp.sendRedirect("phongs");
+                    break;
+                case "Notification":
+                    resp.sendRedirect("thongbao");
                     break;
                 default:
                     req.getRequestDispatcher("/WEB-INF/admin.jsp").forward(req,resp);

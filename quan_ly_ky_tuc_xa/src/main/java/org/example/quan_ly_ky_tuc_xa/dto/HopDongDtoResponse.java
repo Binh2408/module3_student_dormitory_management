@@ -14,7 +14,6 @@ public class HopDongDtoResponse {
     }
 
 
-
     public HopDongDtoResponse( String tenSinhVien, String tenPhong,
                               LocalDate thoiGianBatDau, LocalDate thoiGianKetThuc, int chiPhiThue) {
         this.tenSinhVien = tenSinhVien;

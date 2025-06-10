@@ -51,7 +51,7 @@
                                             onblur="kiemTraDuLieu()" onchange="hienThiGiaPhongMoiThang(this)">
                                         <option value="">-- Chọn phòng --</option>
                                         <c:forEach items="${phongList}" var="phong">
-                                            <option value="${phong.phongId}"
+                                            <option value="${phong.idPhong}"
                                                     data-gia_moi_thang="${phong.giaMoiThang}">${phong.tenPhong}</option>
                                         </c:forEach>
                                     </select>
@@ -152,9 +152,7 @@
         let giaThue = document.getElementById("giaThue").value;
         let thoiGianHienTai = new Date();
         let dateNgayBatDauThue = new Date(ngayBatDau);
-        let dateNgayKetThucThue = new Date(ngayKetThucu);
-        let thangBatDauThue = new Date(ngayBatDau).getMonth();
-        let thangKetThucThue = new Date(ngayKetThuc).getMonth();
+        let dateNgayKetThucThue = new Date(ngayKetThuc);
 
         if (sinhVien === "") {
             hienLoi("sinhVien", "Vui lòng chọn sinh viên");
@@ -184,14 +182,19 @@
 
         if (ngayKetThuc === "") {
             hienLoi("ngayKetThuc", "Không được để trống");
-        } else if (thangBatDauThue >= thangKetThucThue && dateNgayBatDauThue > dateNgayKetThucThue) {
-            hienLoi("ngayBatDau", "Ngày kết thúc thue phai lớn hơn bắt đầu");
+        } else if (dateNgayBatDauThue > dateNgayKetThucThue) {
+            hienLoi("ngayKetThuc", "Ngày kết thúc thue phai lớn hơn bắt đầu");
+        } else if (
+            dateNgayBatDauThue.getMonth() >= dateNgayKetThucThue.getMonth()
+        ) {
+            hienLoi("ngayKetThuc","Tháng kết thúc thuê phải lớn hơn tháng hiện tại");
         } else {
             hienThanhCong("ngayKetThuc");
         }
 
         let isValid = sinhVien !== "" && taiKhoanSinhVien !== "" && tenPhong !== ""
-            && ngayBatDau !== "" && ngayKetThuc !== "" && giaThue !== "";
+            && ngayBatDau !== "" && ngayKetThuc !== "" && giaThue !== ""
+            && dateNgayBatDauThue < dateNgayKetThucThue && dateNgayBatDauThue.getMonth() < dateNgayKetThucThue.getMonth()
         document.getElementById("btnTaoMoi").disabled = !isValid;
     }
 
