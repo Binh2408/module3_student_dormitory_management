@@ -51,28 +51,32 @@ public class HopDongController extends HttpServlet {
     private void showFormUpdate(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int updateId = Integer.parseInt(req.getParameter("updateHopDongId"));
         HopDongDtoResponse hopDongDtoResponse = hopDongService.timKiemHopDongTheoId(updateId);
+        SinhVienDtoResponse sinhVienDtoResponse = sinhVienService.findSVByHDId(updateId);
         req.setCharacterEncoding("UTF-8");
-        List<SinhVienDtoResponse> sinhVienDtoResponseList = sinhVienService.findAll();
-        req.setAttribute("sinhVienDtoResponseList", sinhVienDtoResponseList);
         if (hopDongDtoResponse != null) {
+            List<SinhVienDtoResponse> sinhVienDtoResponseList = sinhVienService.getSVChuaTaoHD();
+            sinhVienDtoResponseList.add(sinhVienDtoResponse);
+            req.setAttribute("sinhVienDtoResponseList", sinhVienDtoResponseList);
+            List<Phong> phongList = phongService.getPhongHD();
+            req.setAttribute("phongList", phongList);
             req.setAttribute("hopDongDtoResponse", hopDongDtoResponse);
             req.getRequestDispatcher("/WEB-INF/contracts/update.jsp").forward(req, resp);
         }
     }
 
     private void showFormCreate(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<Phong> phongList=phongService.getPhongHD();
-        req.setAttribute("phongList",phongList);
+        List<Phong> phongList = phongService.getPhongHD();
+        req.setAttribute("phongList", phongList);
         req.setCharacterEncoding("UTF-8");
-        List<SinhVienDtoResponse> sinhVienDtoResponseList = sinhVienService.findAll();
+        List<SinhVienDtoResponse> sinhVienDtoResponseList = sinhVienService.getSVChuaTaoHD();
         req.setAttribute("sinhVienDtoResponseList", sinhVienDtoResponseList);
         req.getRequestDispatcher("/WEB-INF/contracts/create.jsp").forward(req, resp);
     }
 
     private void showList(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<Phong> phongList=phongService.getPhongHD();
+        List<Phong> phongList = phongService.getALLSearch();
         List<HopDongDtoResponse> hopDongDtoResponseList = hopDongService.findAll();
-        req.setAttribute("phongList",phongList);
+        req.setAttribute("phongList", phongList);
         req.setAttribute("hopDongDtoResponseList", hopDongDtoResponseList);
         req.getRequestDispatcher("/WEB-INF/contracts/list.jsp").forward(req, resp);
     }
@@ -103,18 +107,15 @@ public class HopDongController extends HttpServlet {
         }
     }
 
-    private void searchHopDong(HttpServletRequest req, HttpServletResponse resp) {
+    private void searchHopDong(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String searchName = req.getParameter("search");
+        int maPhonng = Integer.parseInt(req.getParameter("phong_id"));
         List<HopDongDtoResponse> hopDongDtoResponseList =
-                hopDongService.searchBySinhVienVaLoaiPhong(searchName, 0);
+                hopDongService.searchBySinhVienVaLoaiPhong(searchName, maPhonng);
+        List<Phong> phongList = phongService.getALLSearch();
+        req.setAttribute("phongList",phongList);
         req.setAttribute("hopDongDtoResponseList", hopDongDtoResponseList);
-        try {
-            req.getRequestDispatcher("/WEB-INF/contracts/list.jsp").forward(req, resp);
-        } catch (ServletException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        req.getRequestDispatcher("/WEB-INF/contracts/list.jsp").forward(req, resp);
     }
 
     private void updateHopDong(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -134,7 +135,6 @@ public class HopDongController extends HttpServlet {
             mess = "Not Update Success";
         }
         resp.sendRedirect("contract?message=" + mess);
-
     }
 
     private void removeHopDong(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -142,7 +142,7 @@ public class HopDongController extends HttpServlet {
         boolean isDeleteSuccess = hopDongService.remove(deleteContractId);
         String mess = "Delete Success";
         if (!isDeleteSuccess) {
-            mess = "Not Delete Success";
+            mess = "Xoá Thất Bại";
         }
         resp.sendRedirect("/contract?message=" + mess);
     }
@@ -157,9 +157,9 @@ public class HopDongController extends HttpServlet {
         LocalDate ngayKetThucThue = LocalDate.parse(thoiGianKetThuc, dateTimeFormatter);
         HopDong hopDong = new HopDong(maSinhVien, maPhong, ngayBatDauThue, ngayKetThucThue);
         boolean isCreatSuccess = hopDongService.save(hopDong);
-        String mess = "Creat Success";
+        String mess = "Create Success";
         if (!isCreatSuccess) {
-            mess = " Not Creat Success";
+            mess = " Not Create Success";
         }
 
         resp.sendRedirect("/contract?message=" + mess);

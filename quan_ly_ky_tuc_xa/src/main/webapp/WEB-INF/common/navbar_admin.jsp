@@ -21,22 +21,22 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
                     <button class="btn btn-outline-success m-1"
-                            onclick="window.location.href='/admin?action=StudentManagement'">QuảnLýSinhViên
+                            onclick="window.location.href='/admin?action=StudentManagement'">Quản Lý Sinh Viên
                     </button>
                 </li>
                 <li class="nav-item">
                     <button class="btn btn-outline-success m-1"
-                            onclick="window.location.href='/admin?action=ContractManagement'">QuảnLýHợpĐồng
+                            onclick="window.location.href='/admin?action=ContractManagement'">Quản Lý Hợp Đồng
                     </button>
                 </li>
                 <li class="nav-item">
                     <button class="btn btn-outline-success m-1"
-                            onclick="window.location.href='/admin?action=ViolationManagement'">QuảnLýViPhạm
+                            onclick="window.location.href='/admin?action=ViolationManagement'">Quản Lý Vi Phạm
                     </button>
                 </li>
                 <li class="nav-item">
                     <button class="btn btn-outline-success m-1"
-                            onclick="window.location.href='/admin?action=RevenueStatistics'">ThốngKêDoanhThu
+                            onclick="window.location.href='/admin?action=RevenueStatistics'">Thống Kê Doanh Thu
                     </button>
                 </li>
                 <li class="nav-item">

@@ -4,6 +4,7 @@ import org.example.quan_ly_ky_tuc_xa.dto.SinhVienDtoResponse;
 import org.example.quan_ly_ky_tuc_xa.dto.student.SinhVienDTO;
 import org.example.quan_ly_ky_tuc_xa.repository.ISinhVienRepository;
 import org.example.quan_ly_ky_tuc_xa.repository.SinhVienRepository;
+
 import java.util.List;
 
 public class SinhVienService implements ISinhVienService {
@@ -21,6 +22,16 @@ public class SinhVienService implements ISinhVienService {
 
     @Override
     public void updateProfile(int id, SinhVienDTO updatedStudent) {
-        sinhVienRepository.updateProfile(id,updatedStudent);
+        sinhVienRepository.updateProfile(id, updatedStudent);
+    }
+
+    @Override
+    public List<SinhVienDtoResponse> getSVChuaTaoHD() {
+        return sinhVienRepository.getSVChuaTaoHD();
+    }
+
+    @Override
+    public SinhVienDtoResponse findSVByHDId(int hdID) {
+        return sinhVienRepository.findSVByHDId(hdID);
     }
 }

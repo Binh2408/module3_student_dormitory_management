@@ -25,7 +25,8 @@ public class PhongRepository implements IPhongRepository {
             "  and hd.is_delete = 0\n" +
             "LIMIT 1;";
 
-    private static final String SELECT_PHONG_HD = "select ma_phong,ten_phong,gia_moi_thang from phong";
+    private static final String SELECT_ALL_SEARCH="select ma_phong,ten_phong,gia_moi_thang from phong";
+    private static final String SELECT_PHONG_HD = "select ma_phong,ten_phong,gia_moi_thang from phong where so_nguoi_hien_tai<so_nguoi_do_da";
 
     @Override
     public ThongTinPhongDTO findThongTinPhongByMaSinhVien(int maSinhVien) {
@@ -57,6 +58,24 @@ public class PhongRepository implements IPhongRepository {
         List<Phong> phongList = new ArrayList<>();
         try (Connection connection = BaseRepository.getConnectDB();
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_PHONG_HD);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
+            while (resultSet.next()) {
+                int maPhong = resultSet.getInt("ma_phong");
+                String tenPhong = resultSet.getString("ten_phong");
+                int giaMoiThang = resultSet.getInt("gia_moi_thang");
+                phongList.add(new Phong(maPhong, tenPhong, giaMoiThang));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return phongList;
+    }
+
+    @Override
+    public List<Phong> getALLSearch() {
+        List<Phong> phongList = new ArrayList<>();
+        try (Connection connection = BaseRepository.getConnectDB();
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_SEARCH);
              ResultSet resultSet = preparedStatement.executeQuery()) {
             while (resultSet.next()) {
                 int maPhong = resultSet.getInt("ma_phong");

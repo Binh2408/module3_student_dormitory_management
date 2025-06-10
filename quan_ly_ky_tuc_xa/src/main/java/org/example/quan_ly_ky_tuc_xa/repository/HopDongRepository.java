@@ -117,7 +117,7 @@ public class HopDongRepository implements IHopDongRepository {
             callableStatement.setString(1, tenSinhVienSearch);
             callableStatement.setInt(2, maPhong);
             ResultSet resultSet = callableStatement.executeQuery();
-            while (resultSet.next()) {
+            while (resultSet.next()){
                 int hopDongId = resultSet.getInt("ma_hop_dong");
                 String tenSinhVien = resultSet.getString("ten_sinh_vien");
                 String tenPhong = resultSet.getString("ten_phong");
@@ -128,7 +128,7 @@ public class HopDongRepository implements IHopDongRepository {
                 hopDongDtoResponseList.add(hopDongDtoResponse);
             }
         } catch (SQLException e) {
-            System.out.println("loi ket noi database");
+            System.out.println(e.getMessage());
         }
         return hopDongDtoResponseList;
     }

@@ -5,7 +5,7 @@
   Time: 5:43 PM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java"  pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
@@ -33,29 +33,97 @@
     })
     $(document).ready(function () {
         $('#tableHopDong').dataTable({
+            "info": false,
             "dom": 'lrtip',
             "lengthChange": false,
             "pageLength": 2
         })
     })
 
+    function deleteInfo(id, name) {
+        document.getElementById("idHopDongXoa").value = id;
+        document.getElementById("tenSinhVienCanXoa").innerText = name;
+    }
 </script>
 <body>
 <jsp:include page="/WEB-INF/common/navbar_admin.jsp"/>
 <!-- QUẢN LÝ HỢP ĐỒNG -->
 <div class="container container-section" id="contract-section">
-    <c:if test="${not empty param.message}">
-        <div class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive"
-             aria-atomic="true" id="message">
-            <div class="d-flex">
-                <div class="toast-body">
-                        ${param.message}
+
+    <c:choose>
+        <c:when test="${param.message == 'Delete Success'}">
+            <div class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive"
+                 aria-atomic="true" id="message">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        Đã Xoá Thành Công
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                            aria-label="Close"></button>
                 </div>
-                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
-                        aria-label="Close"></button>
             </div>
-        </div>
-    </c:if>
+        </c:when>
+        <c:when test="${param.message == 'Update Success'}">
+            <div class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive"
+                 aria-atomic="true" id="message">
+                <div class="d-flex">
+                    <div class="toast-body">
+                       Thay Đổi Thành Công
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                            aria-label="Close"></button>
+                </div>
+            </div>
+        </c:when>
+        <c:when test="${param.message == 'Create Success'}">
+            <div class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive"
+                 aria-atomic="true" id="message">
+                <div class="d-flex">
+                    <div class="toast-body">
+                       Thêm Mới Thành Công
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                            aria-label="Close"></button>
+                </div>
+            </div>
+        </c:when>
+        <c:when test="${param.message == 'Not Delete Success'}">
+            <div class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive"
+                 aria-atomic="true" id="message">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        Xoá Thất Bại
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                            aria-label="Close"></button>
+                </div>
+            </div>
+        </c:when>
+        <c:when test="${param.message == 'Not Update Success'}">
+            <div class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive"
+                 aria-atomic="true" id="message">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        Thay Đổi Thất Bại
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                            aria-label="Close"></button>
+                </div>
+            </div>
+        </c:when>
+        <c:when test="${param.message == 'Not Create Success'}">
+            <div class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive"
+                 aria-atomic="true" id="message">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        Thêm Mới Thất Bại
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                            aria-label="Close"></button>
+                </div>
+            </div>
+        </c:when>
+    </c:choose>
     <h2 class="text-center mt-3 mb-4 text-success">Quản Lý Hợp Đồng</h2>
 
     <div class="d-flex justify-content-between align-items-center mb-3">
@@ -66,7 +134,7 @@
 
         <!-- Form tìm kiếm bên phải -->
         <form class="d-flex" role="search" method="post" action="contract?action=search">
-            <input class="form-control me-2" type="search" placeholder="Search by name" name="search"
+            <input class="form-control me-2" type="search" placeholder="--Nhập Tên SV--" name="search"
                    aria-label="Search">
 
             <select name="phong_id" class="form-control me-2" aria-label="Search">
@@ -87,18 +155,18 @@
             <th style="text-align: center">Phòng</th>
             <th style="text-align: center">Ngày Bắt Đầu Thuê</th>
             <th style="text-align: center">Ngày Kết Thúc Thuê</th>
-            <th style="text-align: center">Chi Phí Thuê</th>
+            <th style="text-align: center">Tổng Chi Phí</th>
             <th style="text-align: center">Hành Động</th>
         </tr>
         </thead>
         <tbody>
         <c:forEach var="hopDongDtoResponse" items="${hopDongDtoResponseList}" varStatus="idx">
             <tr>
-                <td>${idx.count}</td>
-                <td>${hopDongDtoResponse.tenSinhVien}</td>
-                <td>${hopDongDtoResponse.tenPhong}</td>
-                <td>${hopDongDtoResponse.thoiGianBatDau}</td>
-                <td>${hopDongDtoResponse.thoiGianKetThuc}</td>
+                <td style="text-align: center">${idx.count}</td>
+                <td style="text-align: left">${hopDongDtoResponse.tenSinhVien}</td>
+                <td style="text-align: center">${hopDongDtoResponse.tenPhong}</td>
+                <td style="text-align: center">${hopDongDtoResponse.thoiGianBatDau}</td>
+                <td style="text-align: center">${hopDongDtoResponse.thoiGianKetThuc}</td>
                 <td>
                     <fmt:formatNumber value="${hopDongDtoResponse.chiPhiThue}" type="number" groupingUsed="true"/>VND
                 </td>
@@ -109,7 +177,8 @@
                         <i class="fa fa-edit"></i>
                     </button>
                     <button class="btn btn-sm btn-danger btn-delete" data-bs-toggle="modal"
-                            data-bs-target="#confirmDeleteModal" data-id="${hopDongDtoResponse.maHopDong}">
+                            data-bs-target="#confirmDeleteModal" data-id="${hopDongDtoResponse.maHopDong}"
+                            onclick="deleteInfo('${hopDongDtoResponse.maHopDong}','${hopDongDtoResponse.tenSinhVien}')">
                         <i class="fa fa-trash"></i>
                     </button>
                 </td>
@@ -117,28 +186,34 @@
         </c:forEach>
         </tbody>
     </table>
-    <c:if test="${not empty param.message}">
-        <p id="message" style="color: blue">${param.message}</p>
-    </c:if>
 
     <div class="modal fade" id="confirmDeleteModal" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title text-danger">Confirm Delete</h5>
+                    <h5 class="modal-title text-danger">Xác Nhận Xoá Hợp Đồng</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-                <div class="modal-body">Are you sure you want to delete this record?</div>
+                <div class="modal-body">
+                    Bạn có muốn xoá hợp đồng của sinh vien <span id="tenSinhVienCanXoa"></span>
+                </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Thoát</button>
                     <form method="post" action="contract?action=delete">
-                        <input type="hidden" id="deleteContractCode" name="deleteContractId">
-                        <button type="submit" id="confirmDeleteBtn" class="btn btn-danger">Yes, Delete</button>
+                        <input type="hidden" id="idHopDongXoa" name="deleteContractId">
+                        <button type="submit" id="confirmDeleteBtn" class="btn btn-danger">Có ,Xoá</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
-</body>
+</body><script>
+    // Kiểm tra nếu URL có query string
+    if (window.location.search) {
+        // Xóa query string mà không reload
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
+</script>
+
 </html>

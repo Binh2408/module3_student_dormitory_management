@@ -9,5 +9,7 @@ public interface ISinhVienService {
     List<SinhVienDtoResponse> findAll();
     SinhVienDTO findStudentProfileByUsernameAndPassword(String username);
     void updateProfile(int id, SinhVienDTO updatedStudent);
+    List<SinhVienDtoResponse> getSVChuaTaoHD();
+    SinhVienDtoResponse findSVByHDId(int hdID);
 
 }

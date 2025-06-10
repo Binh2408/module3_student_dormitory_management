@@ -9,4 +9,5 @@ public interface IPhongService {
     ThongTinPhongDTO findThongTinPhongByMaSinhVien(int maSinhVien);
 
     List<Phong> getPhongHD();
+    List<Phong> getALLSearch();
 }
