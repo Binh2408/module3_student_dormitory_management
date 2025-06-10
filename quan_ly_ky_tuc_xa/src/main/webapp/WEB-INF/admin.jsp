@@ -11,5 +11,12 @@
 <jsp:include page="/WEB-INF/common/head_admin.jsp"/>
 <body>
 <jsp:include page="/WEB-INF/common/navbar_admin.jsp"/>
+<!-- Thông báo chọn chức năng -->
+<div class="container mt-5">
+    <div class="text-center">
+        <h3 class="text-secondary">Vui lòng chọn một chức năng quản lý từ thanh điều hướng phía trên.</h3>
+        <p class="text-muted">Hệ thống quản lý ký túc xá dành cho quản trị viên.</p>
+    </div>
+</div>
 </body>
 </html>

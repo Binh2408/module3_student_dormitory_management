@@ -61,7 +61,9 @@ public class StudentController extends HttpServlet {
 
         // Gọi service cập nhật
         sinhVienService.updateProfile(maSinhVien, updatedStudent);
-
+        // Đặt thông báo thành công vào session
+        HttpSession session = req.getSession();
+        session.setAttribute("successMessage", "Cập nhật thông tin thành công!");
         // Redirect lại trang profile để hiển thị dữ liệu mới
         resp.sendRedirect("students");
     }

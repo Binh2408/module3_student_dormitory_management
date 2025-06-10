@@ -1,6 +1,7 @@
 package org.example.quan_ly_ky_tuc_xa.entity;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Account {
     private int maTaiKhoan;
@@ -69,5 +70,12 @@ public class Account {
 
     public void setDelete(boolean delete) {
         isDelete = delete;
+    }
+
+    // Thêm phương thức getter để lấy chuỗi định dạng ngày tạo
+    public String getNgayTaoTaiKhoanFormatted() {
+        if (ngayTaoTaiKhoan == null) return "";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        return ngayTaoTaiKhoan.format(formatter);
     }
 }

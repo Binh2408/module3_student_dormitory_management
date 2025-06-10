@@ -23,6 +23,7 @@
                 deleteContractCodeInput.value = this.getAttribute("data-id")
             })
         }
+    })
 
         const toastElement = document.getElementById('message');
         if (toastElement) {
@@ -130,6 +131,7 @@
         <button class="btn btn-success" onclick="window.location.href='violationRecord?action=add'">
             <i class="fa fa-plus"></i> Thêm Mới Biên Bản
         </button>
+
         <!-- Form tìm kiếm bên phải -->
         <form class="d-flex" role="search" method="post" action="violationRecord?action=search">
             <input class="form-control me-2" type="search" placeholder="--Nhập Tên SV--" name="search"
