@@ -2,6 +2,7 @@ package org.example.quan_ly_ky_tuc_xa.service;
 
 
 import org.example.quan_ly_ky_tuc_xa.dto.HopDongDtoResponse;
+import org.example.quan_ly_ky_tuc_xa.dto.contract.ThongTinHopDongDTO;
 import org.example.quan_ly_ky_tuc_xa.entity.HopDong;
 import org.example.quan_ly_ky_tuc_xa.repository.HopDongRepository;
 import org.example.quan_ly_ky_tuc_xa.repository.IHopDongRepository;
@@ -30,5 +31,10 @@ public class HopDongService implements IHopDongService {
     @Override
     public boolean remove(int id) {
         return hopDongRepository.remove(id);
+    }
+
+    @Override
+    public ThongTinHopDongDTO findContractByUsername(String username) {
+        return hopDongRepository.findContractByUsername(username);
     }
 }
