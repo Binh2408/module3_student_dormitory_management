@@ -40,9 +40,9 @@
     }
   </style>
 </head>
-<body class="bg-light">
 <%@ include file="../../header_navbar_footer/header.jsp" %>
 
+<body class="bg-light">
 <div class="container mt-5">
   <c:if test="${not empty error}">
     <div class="alert alert-danger text-center">${error}</div>
@@ -80,11 +80,13 @@
         </div>
         <div class="info-row row align-items-center">
           <label class="col-sm-4 info-label">Ngày bắt đầu:</label>
-          <div class="col-sm-8">${thongTinHopDong.thoiGianBatDau}</div>
+          <div class="col-sm-8"><fmt:formatDate value="${thongTinHopDong.thoiGianBatDauAsDate}" pattern="dd/MM/yyyy" />
+          </div>
         </div>
         <div class="info-row row align-items-center">
           <label class="col-sm-4 info-label">Ngày kết thúc:</label>
-          <div class="col-sm-8">${thongTinHopDong.thoiGianKetThuc}</div>
+          <div class="col-sm-8"><fmt:formatDate value="${thongTinHopDong.thoiGianKetThucAsDate}" pattern="dd/MM/yyyy" />
+        </div>
         </div>
       </div>
       <div class="card-footer text-center">
@@ -102,6 +104,7 @@
     </div>
   </c:if>
 </div>
+
 <%@ include file="../../header_navbar_footer/footer.jsp" %>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

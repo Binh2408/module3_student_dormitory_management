@@ -1,6 +1,8 @@
 package org.example.quan_ly_ky_tuc_xa.dto.contract;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 public class ThongTinHopDongDTO {
     private int maHopDong;
@@ -98,5 +100,12 @@ public class ThongTinHopDongDTO {
 
     public void setThoiGianKetThuc(LocalDateTime thoiGianKetThuc) {
         this.thoiGianKetThuc = thoiGianKetThuc;
+    }
+    public Date getThoiGianBatDauAsDate() {
+        return Timestamp.valueOf(this.thoiGianBatDau);
+    }
+
+    public Date getThoiGianKetThucAsDate() {
+        return Timestamp.valueOf(this.thoiGianKetThuc);
     }
 }

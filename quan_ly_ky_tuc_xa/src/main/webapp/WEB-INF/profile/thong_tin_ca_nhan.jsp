@@ -46,6 +46,15 @@
 <%@ include file="../../header_navbar_footer/header.jsp" %>
 
 <div class="container py-5">
+<%--    &lt;%&ndash; Hiển thị thông báo nếu có &ndash;%&gt;--%>
+<%--    <c:if test="${not empty sessionScope.successMessage}">--%>
+<%--        <div class="alert alert-success alert-dismissible fade show text-center" role="alert">--%>
+<%--                ${sessionScope.successMessage}--%>
+<%--            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>--%>
+<%--        </div>--%>
+<%--        <c:remove var="successMessage" scope="session" />--%>
+<%--    </c:if>--%>
+
     <div class="row justify-content-center">
         <div class="col-lg-8 col-md-10">
             <div class="card shadow-lg">
@@ -176,11 +185,13 @@
                 </div>
                 <div class="mb-4 row align-items-center">
                     <label class="col-sm-4 col-form-label fw-bold">Hợp đồng từ:</label>
-                    <div class="col-sm-8">${phongDTO.thoiGianBatDau}</div>
+                    <div class="col-sm-8"><fmt:formatDate value="${phongDTO.thoiGianBatDauAsDate}" pattern="dd/MM/yyyy" />
+                    </div>
                 </div>
                 <div class="mb-4 row align-items-center">
                     <label class="col-sm-4 col-form-label fw-bold">Đến ngày:</label>
-                    <div class="col-sm-8">${phongDTO.thoiGianKetThuc}</div>
+                    <div class="col-sm-8"><fmt:formatDate value="${phongDTO.thoiGianKetThucAsDate}" pattern="dd/MM/yyyy" />
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -189,10 +200,32 @@
         </div>
     </div>
 </div>
+<!-- Toast thông báo -->
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1055">
+    <div id="successToast" class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body">
+                ${sessionScope.successMessage}
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+</div>
+<c:remove var="successMessage" scope="session" />
 
 <%@ include file="../../header_navbar_footer/footer.jsp" %>
 
 <!-- Bootstrap 5 JS (optional for future features) -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const toastEl = document.getElementById("successToast");
+        if (toastEl && toastEl.querySelector(".toast-body").textContent.trim() !== "") {
+            const toast = new bootstrap.Toast(toastEl, { delay: 3000 });
+            toast.show();
+        }
+    });
+</script>
+
 </body>
 </html>
