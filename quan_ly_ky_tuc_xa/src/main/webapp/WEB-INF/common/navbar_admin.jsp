@@ -44,6 +44,11 @@
                             onclick="window.location.href='/admin?action=RoomManagement'">QuảnLýPhòng
                     </button>
                 </li>
+                <li class="nav-item">
+                    <button class="btn btn-outline-success m-1"
+                            onclick="window.location.href='/admin?action=Notification'">Thông báo
+                    </button>
+                </li>
             </ul>
         </div>
     </div>
