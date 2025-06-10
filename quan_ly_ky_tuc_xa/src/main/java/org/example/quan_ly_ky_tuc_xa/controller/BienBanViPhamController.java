@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -33,6 +34,12 @@ public class BienBanViPhamController extends HttpServlet {
         if (action == null) {
             action = "";
         }
+        String message = req.getParameter("message");
+        String type = req.getParameter("type"); // success, danger, warning, info
+        if (message != null && !message.isEmpty()) {
+            req.setAttribute("message", message);
+            req.setAttribute("type", type != null ? type : "info");
+        }
         switch (action) {
             case "add":
                 showFormCreate(req, resp);
@@ -50,11 +57,11 @@ public class BienBanViPhamController extends HttpServlet {
     private void deleteBienBan(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         int deleteBienBanId = Integer.parseInt(req.getParameter("deleteContractId"));
         boolean isDeleteSuccess = bienBanViPhamService.remove(deleteBienBanId);
-        String mess = "delete success";
+        String mess = "Delete Success";
         if (!isDeleteSuccess) {
-            mess = "not delete success";
+            mess = "Not Delete Success";
         }
-        resp.sendRedirect("violationRecord?message" + mess);
+        resp.sendRedirect("/violationRecord?message=" + mess);
     }
 
     private void showFormEdit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -84,6 +91,8 @@ public class BienBanViPhamController extends HttpServlet {
     }
 
     private void showList(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        List<LoaiViPham> loaiViPhamList = loaiViPhamService.findAll();
+        req.setAttribute("loaiViPhamList", loaiViPhamList);
         List<BienBanViPhamDtoReponse> bienBanViPhamDtoReponseList = bienBanViPhamService.findAll();
         req.setAttribute("bienBanViPhamDtoReponseList", bienBanViPhamDtoReponseList);
         req.getRequestDispatcher("/WEB-INF/violation_record/list.jsp").forward(req, resp);
@@ -104,8 +113,24 @@ public class BienBanViPhamController extends HttpServlet {
             case "delete":
                 deleteBienBan(req, resp);
                 break;
+            case "search":
+                searchBienBan(req, resp);
+                break;
             default:
+                showList(req, resp);
         }
+    }
+
+    private void searchBienBan(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String searchName = req.getParameter("search");
+        int maLoaiViPham = Integer.parseInt(req.getParameter("loai_vi_pham_id"));
+        List<BienBanViPhamDtoReponse> bienBanViPhamDtoReponseList =
+                bienBanViPhamService.searchBySinhVienVaLoaiViPham(searchName, maLoaiViPham);
+        List<LoaiViPham> loaiViPhamList = loaiViPhamService.findAll();
+        req.setAttribute("loaiViPhamList", loaiViPhamList);
+        req.setAttribute("bienBanViPhamDtoReponseList", bienBanViPhamDtoReponseList);
+        req.getRequestDispatcher("/WEB-INF/violation_record/list.jsp").forward(req, resp);
+
     }
 
     private void editBienBan(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -118,15 +143,14 @@ public class BienBanViPhamController extends HttpServlet {
         LocalDate ngayViPham = LocalDate.parse(thoiGianViPham, dateTimeFormatter);
         BienBanViPham bienBanViPham = new BienBanViPham(maBienBanViPham, maSinhVienViPham, maLoaiViPham, maMucDoViPham, ngayViPham);
         boolean isEditSuccess = bienBanViPhamService.update(bienBanViPham);
-        String mess = "update success";
+        String mess = "Update Success";
         if (!isEditSuccess) {
-            mess = "not update success";
+            mess = "Not Update Success";
         }
-        resp.sendRedirect("violationRecord?message" + mess);
+        resp.sendRedirect("violationRecord?message=" + mess);
     }
 
     private void save(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-
         int maSinhVienViPham = Integer.parseInt(req.getParameter("tenSinhVien"));
         int maLoaiViPham = Integer.parseInt(req.getParameter("loaiViPham"));
         int maMucDoViPham = Integer.parseInt(req.getParameter("mucDoViPham"));
@@ -135,10 +159,10 @@ public class BienBanViPhamController extends HttpServlet {
         LocalDate ngayViPham = LocalDate.parse(thoiGianViPham, dateTimeFormatter);
         BienBanViPham bienBanViPham = new BienBanViPham(maSinhVienViPham, maLoaiViPham, maMucDoViPham, ngayViPham);
         boolean isCreateSuccess = bienBanViPhamService.save(bienBanViPham);
-        String mess = "creat success";
+        String mess = "Create Success";
         if (!isCreateSuccess) {
-            mess = "not creat success";
+            mess = "Not Create success";
         }
-        resp.sendRedirect("violationRecord?message" + mess);
+        resp.sendRedirect("/violationRecord?message=" + mess);
     }
 }

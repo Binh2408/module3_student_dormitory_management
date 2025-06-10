@@ -17,11 +17,13 @@
                                     <select name="ma_sinh_vien" id="sinhVien" required
                                             onchange="hienThiTaiKhoanSinhVien(this)"
                                             data-size="5" class="form-control w-100">
-                                        <option></option>
+                                        <option value="">--Chọn Sinh Viên --</option>
                                         <c:forEach items="${sinhVienDtoResponseList}" var="sinhVien" varStatus="status">
                                             <option value="${sinhVien.sinhVienId}"
-                                                    data-tai-khoan="${sinhVien.userName}">
-                                                SV: ${sinhVien.tenSinhVien}
+                                                    data-tai-khoan="${sinhVien.userName}"
+                                                    data-email="${sinhVien.email}"
+                                                    data-cmnd="${sinhVien.cmnd}">
+                                                    ${sinhVien.tenSinhVien}
                                             </option>
                                         </c:forEach>
                                     </select>
@@ -36,10 +38,33 @@
                             <div class="col-sm-8">
                                 <div style="display: flex">
                                     <input type="text" class="form-control" readonly id="taiKhoanSinhVien"
-                                           onblur="kiemTraDuLieu()">
+                                           onblur="kiemTraDuLieu()" placeholder="Tài Khoản Sinh Viên ">
                                     <span id="taiKhoanSinhVienIcon"></span>
                                 </div>
                                 <p id="taiKhoanSinhVienLoi"></p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <label class="form-label col-sm-4">CMND</label>
+                            <div class="col-sm-8">
+                                <div style="display: flex">
+                                    <input type="text" class="form-control" readonly id="cmnd"
+                                           onblur="kiemTraDuLieu()" placeholder="Chứng Minh Nhân Dân">
+                                    <span id="cmndIcon"></span>
+                                </div>
+                                <p id="cmndLoi"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="form-label col-sm-4">EMAIL</label>
+                            <div class="col-sm-8">
+                                <div style="display: flex">
+                                    <input type="text" class="form-control" readonly id="email"
+                                           onblur="kiemTraDuLieu()" placeholder="Email">
+                                    <span id="emailIcon"></span>
+                                </div>
+                                <p id="emailLoi"></p>
                             </div>
                         </div>
 
@@ -51,13 +76,26 @@
                                             onblur="kiemTraDuLieu()" onchange="hienThiGiaPhongMoiThang(this)">
                                         <option value="">-- Chọn phòng --</option>
                                         <c:forEach items="${phongList}" var="phong">
-                                            <option value="${phong.phongId}"
+                                            <option value="${phong.idPhong}"
                                                     data-gia_moi_thang="${phong.giaMoiThang}">${phong.tenPhong}</option>
                                         </c:forEach>
                                     </select>
                                     <span id="tenPhongIcon"></span>
                                 </div>
                                 <p id="tenPhongLoi"></p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <label class="form-label col-sm-4">Giá Phòng</label>
+                            <div class="col-sm-8">
+                                <div style="display: flex">
+                                    <input name="gia_thue" type="number" class="form-control" required
+                                           value="${contract.rentalCost}" id="giaThue" onblur="kiemTraDuLieu()" min="0"
+                                           readonly placeholder="Giá Phòng">
+                                    <span id="giaThueIcon"></span>
+                                </div>
+                                <p id="giaThueLoi"></p>
                             </div>
                         </div>
 
@@ -85,18 +123,6 @@
                             </div>
                         </div>
 
-                        <div class="row">
-                            <label class="form-label col-sm-4">Giá Thuê</label>
-                            <div class="col-sm-8">
-                                <div style="display: flex">
-                                    <input name="gia_thue" type="number" class="form-control" required
-                                           value="${contract.rentalCost}" id="giaThue" onblur="kiemTraDuLieu()" min="0"
-                                           readonly>
-                                    <span id="giaThueIcon"></span>
-                                </div>
-                                <p id="giaThueLoi"></p>
-                            </div>
-                        </div>
 
                         <div class="row mt-4 justify-content-center">
                             <div class="col-6 col-md-4">
@@ -141,6 +167,10 @@
         let option = selectElement.options[selectElement.selectedIndex];
         let taiKhoan = option ? option.getAttribute('data-tai-khoan') : "";
         document.getElementById("taiKhoanSinhVien").value = taiKhoan || "";
+        let cmnd = option ? option.getAttribute('data-cmnd') : "";
+        let email = option ? option.getAttribute('data-email') : "";
+        document.getElementById("cmnd").value = cmnd || "";
+        document.getElementById("email").value = email || "";
     }
 
     function kiemTraDuLieu() {
@@ -150,44 +180,67 @@
         let ngayBatDau = document.getElementById("ngayBatDau").value;
         let ngayKetThuc = document.getElementById("ngayKetThuc").value;
         let giaThue = document.getElementById("giaThue").value;
+        let cmnd = document.getElementById("cmnd").value;
+        let email = document.getElementById("email").value;
+        let thoiGianHienTai = new Date();
+        let dateNgayBatDauThue = new Date(ngayBatDau);
+        let dateNgayKetThucThue = new Date(ngayKetThuc);
 
         if (sinhVien === "") {
-            hienLoi("sinhVien", "Vui lòng chọn sinh viên");
+            hienLoi("sinhVien", "Không được để trống");
         } else {
             hienThanhCong("sinhVien");
         }
-
+        if (cmnd === "") {
+            hienLoi("cmnd", "Không được để trống");
+        } else {
+            hienThanhCong("cmnd");
+        }
+        if (email === "") {
+            hienLoi("email", "Không được để trống");
+        } else {
+            hienThanhCong("email");
+        }
         if (taiKhoanSinhVien === "") {
-            hienLoi("taiKhoanSinhVien", "Tài khoản sinh viên không được để trống");
+            hienLoi("taiKhoanSinhVien", "Không được để trống");
         } else {
             hienThanhCong("taiKhoanSinhVien");
         }
 
         if (tenPhong === "") {
-            hienLoi("tenPhong", "Vui lòng chọn tên phòng");
+            hienLoi("tenPhong", "Không được để trống");
         } else {
             hienThanhCong("tenPhong");
+        }
+        if (giaThue === "" || parseInt(giaThue) < 0) {
+            hienLoi("giaThue", "Giá thuê phải lớn hơn hoặc bằng 0");
+        } else {
+            hienThanhCong("giaThue");
         }
 
         if (ngayBatDau === "") {
             hienLoi("ngayBatDau", "Không được để trống");
+        } else if (dateNgayBatDauThue < thoiGianHienTai) {
+            hienLoi("ngayBatDau", "Ngày bắt đầu thuê không thể nhỏ hơn ngày làm hợp đồng")
         } else {
             hienThanhCong("ngayBatDau");
         }
 
         if (ngayKetThuc === "") {
             hienLoi("ngayKetThuc", "Không được để trống");
+        } else if (dateNgayBatDauThue > dateNgayKetThucThue) {
+            hienLoi("ngayKetThuc", "Ngày kết thúc thue phai lớn hơn bắt đầu");
+        } else if (
+            dateNgayBatDauThue.getMonth() >= dateNgayKetThucThue.getMonth()
+        ) {
+            hienLoi("ngayKetThuc", "Tháng kết thúc thuê phải lớn hơn tháng hiện tại");
         } else {
             hienThanhCong("ngayKetThuc");
         }
 
-        if (giaThue === "" || parseInt(giaThue) < 0) {
-            hienLoi("giaThue", "Giá thuê phải lớn hơn hoặc bằng 0");
-        } else {
-            hienThanhCong("giaThue");
-        }
         let isValid = sinhVien !== "" && taiKhoanSinhVien !== "" && tenPhong !== ""
-            && ngayBatDau !== "" && ngayKetThuc !== "" && giaThue >= 0 && giaThue !== "";
+            && ngayBatDau !== "" && ngayKetThuc !== "" && giaThue !== ""
+            && dateNgayBatDauThue < dateNgayKetThucThue && dateNgayBatDauThue.getMonth() < dateNgayKetThucThue.getMonth()
         document.getElementById("btnTaoMoi").disabled = !isValid;
     }
 
@@ -199,7 +252,6 @@
             });
         }
     });
-
 </script>
 </body>
 </html>

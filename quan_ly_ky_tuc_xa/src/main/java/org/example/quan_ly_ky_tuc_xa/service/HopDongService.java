@@ -34,6 +34,11 @@ public class HopDongService implements IHopDongService {
     }
 
     @Override
+    public List<HopDongDtoResponse> searchBySinhVienVaLoaiPhong(String tenSinhVien, int maPhong) {
+        return hopDongRepository.searchBySinhVienVaLoaiPhong(tenSinhVien, maPhong);
+    }
+
+    @Override
     public ThongTinHopDongDTO findContractByUsername(String username) {
         return hopDongRepository.findContractByUsername(username);
     }

@@ -21,8 +21,13 @@ public class Phong {
         this.isDelete = isDelete;
     }
 
+    public Phong(int idPhong, String tenPhong, double giaMoiThang) {
+        this.idPhong = idPhong;
+        this.tenPhong = tenPhong;
+        this.giaMoiThang = giaMoiThang;
+    }
 
-    public Phong( String tenPhong,int loaiPhong, int soNguoiToiDa, int soNguoiHienTai, double giaMoiThang, int trangThai) {
+    public Phong(String tenPhong, int loaiPhong, int soNguoiToiDa, int soNguoiHienTai, double giaMoiThang, int trangThai) {
 
         this.tenPhong = tenPhong;
         this.loaiPhong = loaiPhong;
