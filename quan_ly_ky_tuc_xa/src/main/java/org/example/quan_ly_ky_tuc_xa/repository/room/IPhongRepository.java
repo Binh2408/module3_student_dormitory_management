@@ -9,4 +9,6 @@ public interface IPhongRepository {
     ThongTinPhongDTO findThongTinPhongByMaSinhVien(int maSinhVien);
 
     List<Phong> getPhongHD();
+    List<Phong> getALLSearch();
+
 }

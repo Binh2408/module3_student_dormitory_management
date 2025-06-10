@@ -106,7 +106,7 @@
                                 </button>
                             </div>
                             <div class="col-6 col-md-4">
-                                <button type="reset" class="btn btn-outline-danger w-100">Reset
+                                <button type="button" class="btn btn-outline-danger w-100" onclick="window.location.href='violationRecord'">Thoát
                                 </button>
                             </div>
                         </div>

@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <head>
-    <meta charset="UTF-8">
+<%--    <meta charset="UTF-8">--%>
     <title><S></title> <!-- hoặc đặt tĩnh -->
     <%--    bootstrap5 css va js--%>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>

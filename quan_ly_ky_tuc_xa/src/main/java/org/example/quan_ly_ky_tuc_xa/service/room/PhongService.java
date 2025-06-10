@@ -19,4 +19,9 @@ public class PhongService implements IPhongService {
     public List<Phong> getPhongHD() {
         return phongRepository.getPhongHD();
     }
+
+    @Override
+    public List<Phong> getALLSearch() {
+        return phongRepository.getALLSearch();
+    }
 }

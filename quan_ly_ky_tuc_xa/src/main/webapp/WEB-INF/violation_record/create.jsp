@@ -17,7 +17,7 @@
                                     <select name="tenSinhVien" id="sinhVien" required
                                             onchange="hienThiThongTinSinhVien(this)"
                                             data-size="5" class="form-control w-100">
-                                        <option></option>
+                                        <option value=""> -- Chọn Sinh Viên --</option>
                                         <c:forEach items="${sinhVienDtoResponseList}" var="sinhVien" varStatus="status">
                                             <option value="${sinhVien.sinhVienId}"
                                                     data-tai-khoan="${sinhVien.userName}">
@@ -36,7 +36,7 @@
                             <div class="col-sm-8">
                                 <div style="display: flex">
                                     <input type="text" class="form-control" readonly id="taiKhoanSinhVien"
-                                           onblur="kiemTraDuLieu()">
+                                           onblur="kiemTraDuLieu()" placeholder="Tài Khoản Sinh Viên">
                                     <span id="taiKhoanSinhVienIcon"></span>
                                 </div>
                                 <p id="taiKhoanSinhVienLoi"></p>
@@ -49,7 +49,7 @@
                                 <div style="display: flex">
                                     <select name="loaiViPham" class="form-select" required id="loaiViPham"
                                             onblur="kiemTraDuLieu()">
-                                        <option></option>
+                                        <option value=""> -- Loại Vi Phạm --</option>
                                         <c:forEach items="${loaiViPhamList}" var="loaiViPham">
                                             <option value="${loaiViPham.loaiViPhamId}"> ${loaiViPham.tenLoaiViPham}</option>
                                         </c:forEach>
