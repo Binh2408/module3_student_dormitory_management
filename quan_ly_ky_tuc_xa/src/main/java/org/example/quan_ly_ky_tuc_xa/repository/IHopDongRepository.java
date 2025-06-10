@@ -1,5 +1,6 @@
 package org.example.quan_ly_ky_tuc_xa.repository;
 
+import org.example.quan_ly_ky_tuc_xa.dto.BienBanViPhamDtoReponse;
 import org.example.quan_ly_ky_tuc_xa.dto.HopDongDtoResponse;
 import org.example.quan_ly_ky_tuc_xa.entity.HopDong;
 
@@ -14,6 +15,6 @@ public interface IHopDongRepository {
 
     boolean remove(int id);
 
-    List<HopDongDtoResponse> findByNameAndPrice(int price, String name);
+    List<HopDongDtoResponse> searchBySinhVienVaLoaiPhong(String tenSinhVien, int maPhong);
 
 }

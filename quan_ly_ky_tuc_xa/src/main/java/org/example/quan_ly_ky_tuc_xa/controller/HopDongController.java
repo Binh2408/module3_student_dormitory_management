@@ -4,6 +4,7 @@ import org.example.quan_ly_ky_tuc_xa.dto.HopDongDtoResponse;
 import org.example.quan_ly_ky_tuc_xa.dto.SinhVienDtoResponse;
 import org.example.quan_ly_ky_tuc_xa.entity.HopDong;
 
+
 import org.example.quan_ly_ky_tuc_xa.service.*;
 
 import javax.servlet.ServletException;
@@ -21,7 +22,6 @@ import java.util.List;
 public class HopDongController extends HttpServlet {
     private final IHopDongService hopDongService = new HopDongService();
     private final ISinhVienService sinhVienService = new SinhVienService();
-
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -86,8 +86,26 @@ public class HopDongController extends HttpServlet {
             case "delete":
                 removeHopDong(req, resp);
                 break;
+            case "search":
+                searchHopDong(req, resp);
+                break;
             default:
                 showList(req, resp);
+                break;
+        }
+    }
+
+    private void searchHopDong(HttpServletRequest req, HttpServletResponse resp) {
+        String searchName = req.getParameter("search");
+        List<HopDongDtoResponse> hopDongDtoResponseList =
+                hopDongService.searchBySinhVienVaLoaiPhong(searchName, 0);
+        req.setAttribute("hopDongDtoResponseList",hopDongDtoResponseList);
+        try {
+            req.getRequestDispatcher("/WEB-INF/contracts/list.jsp").forward(req, resp);
+        } catch (ServletException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -135,6 +153,7 @@ public class HopDongController extends HttpServlet {
         if (!isCreatSuccess) {
             mess = " not creat  success";
         }
+
         resp.sendRedirect("/contract?message" + mess);
     }
 }

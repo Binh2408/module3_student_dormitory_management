@@ -9,6 +9,11 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <jsp:include page="/WEB-INF/common/head_admin.jsp"/>
+<style>
+    th {
+        text-align: center !important;
+    }
+</style>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         let deleteButtons = document.querySelectorAll(".btn-delete");
@@ -18,16 +23,20 @@
                 deleteContractCodeInput.value = this.getAttribute("data-id")
             })
         }
-    })
 
+        const toastElement = document.getElementById('message');
+        if (toastElement) {
+            const toast = new bootstrap.Toast(toastElement);
+            toast.show();
+        }
+    })
     $(document).ready(function () {
-        $('#tableBienBan').dataTable({
+        $('#tableBienBan').DataTable({
             "dom": 'lrtip',
             "lengthChange": false,
             "pageLength": 2
         })
     })
-
 </script>
 <body>
 <jsp:include page="/WEB-INF/common/navbar_admin.jsp"/>
@@ -35,23 +44,35 @@
 <!-- QUẢN LÝ VI PHẠM -->
 <div class="container container-section" id="violation-section">
     <h2 class="text-center mt-3 mb-4 text-success">Quản Lý Vi Phạm</h2>
+
+    <c:if test="${not empty param.message}">
+        <div class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive"
+             aria-atomic="true" id="message">
+            <div class="d-flex">
+                <div class="toast-body">
+                        ${param.message}
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                        aria-label="Close"></button>
+            </div>
+        </div>
+    </c:if>
     <div class="d-flex justify-content-between align-items-center mb-3">
         <!-- Nút tạo mới bên trái -->
         <button class="btn btn-success" onclick="window.location.href='violationRecord?action=add'">
-            <i class="fa fa-plus"></i> Create New Product
+            <i class="fa fa-plus"></i> Thêm Mới Biên Bản
         </button>
-
         <!-- Form tìm kiếm bên phải -->
         <form class="d-flex" role="search" method="post" action="violationRecord?action=search">
-            <input class="form-control me-2" type="search" placeholder="Search by name" name="search" aria-label="Search">
+            <input class="form-control me-2" type="search" placeholder="Search by name" name="search"
+                   aria-label="Search">
 
-            <select name="manufacturer_id" class="form-control me-2" aria-label="Search">
-                <option value="${0}">-- Chọn giá thấp nhất --</option>
-                <c:forEach items="${manufacturerList}" var="manufacturer">
-                    <option value="${manufacturer.id}">${manufacturer.name}</option>
+            <select name="loai_vi_pham_id" class="form-control me-2" aria-label="Search">
+                <option value="${0}">-- Chọn sinh viên vi phạm --</option>
+                <c:forEach items="${loaiViPhamList}" var="loaiViPham">
+                    <option value="${loaiViPham.loaiViPhamId}">${loaiViPham.tenLoaiViPham}</option>
                 </c:forEach>
             </select>
-
             <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
     </div>
@@ -59,30 +80,31 @@
     <table class="table table-sm table-bordered text-center table-striped" id="tableBienBan">
         <thead class="table-light">
         <tr>
-            <th>No</th>
-            <th>ViolationStudentName</th>
-            <th>ViolationTypeName;</th>
-            <th>LevelOfViolationName</th>
-            <th>TimeOfViolation</th>
-            <th>Actions</th>
+            <th>STT</th>
+            <th>Sinh Viên Vi Phạm</th>
+            <th>Loại Vi Phạm</th>
+            <th>Mức Độ Vi Phạm</th>
+            <th>Thời Gian Vi Phạm</th>
+            <th>Hành Động</th>
         </tr>
         </thead>
         <tbody>
         <c:forEach var="bienBanViPhamDtoReponse" items="${bienBanViPhamDtoReponseList}" varStatus="status">
             <tr>
-                <td>${status.count}</td>
-                <td>${bienBanViPhamDtoReponse.tenSinhVien}</td>
+                <td style="text-align: center">${status.count}</td>
+                <td style="text-align: left">${bienBanViPhamDtoReponse.tenSinhVien}</td>
                 <td>${bienBanViPhamDtoReponse.tenLoaiViPham}</td>
                 <td>${bienBanViPhamDtoReponse.mucDoViPham}</td>
-                <td>${bienBanViPhamDtoReponse.thoiGianViPham}</td>
+                <td style="text-align: center">${bienBanViPhamDtoReponse.thoiGianViPham}</td>
                 <td>
                     <button class="btn btn-sm btn-warning btn-update me-1" data-bs-toggle="modal"
-                            data-bs-target="#updateContractModal" onclick="window.location.href='violationRecord?action=edit&id=${bienBanViPhamDtoReponse.bienBanId}'">
+                            data-bs-target="#updateContractModal"
+                            onclick="window.location.href='violationRecord?action=edit&id=${bienBanViPhamDtoReponse.bienBanId}'">
                         <i class="fa fa-edit"></i>
                     </button>
                     <button class="btn btn-sm btn-danger btn-delete" data-bs-toggle="modal"
                             data-bs-target="#confirmDeleteModal"
-                    data-id="${bienBanViPhamDtoReponse.bienBanId}">
+                            data-id="${bienBanViPhamDtoReponse.bienBanId}">
                         <i class="fa fa-trash"></i>
                     </button>
                 </td>
@@ -90,6 +112,7 @@
         </c:forEach>
         </tbody>
     </table>
+
 
     <div class="modal fade" id="confirmDeleteModal" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
@@ -110,5 +133,6 @@
         </div>
     </div>
 </div>
+
 </body>
 </html>

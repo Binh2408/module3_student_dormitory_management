@@ -31,4 +31,9 @@ public class HopDongService implements IHopDongService {
     public boolean remove(int id) {
         return hopDongRepository.remove(id);
     }
+
+    @Override
+    public List<HopDongDtoResponse> searchBySinhVienVaLoaiPhong(String tenSinhVien, int maPhong) {
+        return hopDongRepository.searchBySinhVienVaLoaiPhong(tenSinhVien, maPhong);
+    }
 }

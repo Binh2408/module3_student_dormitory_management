@@ -9,9 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HopDongRepository implements IHopDongRepository {
-    private static final String SELECT_ALL = "select hd.ma_hop_dong,sv.ten_sinh_vien,p.ten_phong,hd.thoi_gian_bat_dau,hd.thoi_gian_ket_thuc,p.gia_moi_thang as chi_phi_thue from hop_dong hd left\n" +
-            " join phong p on hd.ma_phong= p.ma_phong \n" +
-            " join sinh_vien sv on sv.ma_sinh_vien=hd.ma_sinh_vien where hd.is_delete=0";
+    private static final String SELECT_ALL = "select hd.ma_hop_dong,sv.ten_sinh_vien,p.ten_phong,hd.thoi_gian_bat_dau," +
+            "hd.thoi_gian_ket_thuc,timestampdiff(month,hd.thoi_gian_bat_dau,hd.thoi_gian_ket_thuc)*p.gia_moi_thang " +
+            "as chi_phi_thue from hop_dong hd left\n" +
+            "          join phong p on hd.ma_phong= p.ma_phong \n" +
+            "\t\tjoin sinh_vien sv on sv.ma_sinh_vien=hd.ma_sinh_vien where hd.is_delete=0";
 
     private static final String INSERT_INTO = "insert into hop_dong " +
             "(ma_sinh_vien,ma_phong,thoi_gian_bat_dau,thoi_gian_ket_thuc) values(?,?,?,?)";
@@ -21,6 +23,8 @@ public class HopDongRepository implements IHopDongRepository {
             ",thoi_gian_ket_thuc=? where ma_hop_dong=?";
 
     private static final String DELETE = "update hop_dong set is_delete=1 where ma_hop_dong=?";
+
+    private static final String SEARCH = "call search_by_sinh_vien_and_ma_phong(?,?)";
 
     @Override
     public List<HopDongDtoResponse> findAll() {
@@ -35,10 +39,9 @@ public class HopDongRepository implements IHopDongRepository {
                 LocalDate thoiGianBatDau = resultSet.getDate("thoi_gian_bat_dau").toLocalDate();
                 LocalDate thoiGianKetThuc = resultSet.getDate("thoi_gian_ket_thuc").toLocalDate();
                 int chiPhiThue = resultSet.getInt("chi_phi_thue");
-                HopDongDtoResponse hopDongDtoResponse = new HopDongDtoResponse(hopDongId,tenSinhVien, tenPhong, thoiGianBatDau, thoiGianKetThuc, chiPhiThue);
+                HopDongDtoResponse hopDongDtoResponse = new HopDongDtoResponse(hopDongId, tenSinhVien, tenPhong, thoiGianBatDau, thoiGianKetThuc, chiPhiThue);
                 hopDongDtoResponseList.add(hopDongDtoResponse);
             }
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -53,7 +56,6 @@ public class HopDongRepository implements IHopDongRepository {
             preparedStatement.setInt(2, hopDong.getMaPhong());
             preparedStatement.setDate(3, Date.valueOf(hopDong.getThoiGianBatDau()));
             preparedStatement.setDate(4, Date.valueOf(hopDong.getThoiGianKetThuc()));
-            preparedStatement.setInt(5, hopDong.getHopDongId());
             int effectRow = preparedStatement.executeUpdate();
             return effectRow == 1;
         } catch (SQLException e) {
@@ -83,7 +85,7 @@ public class HopDongRepository implements IHopDongRepository {
     public boolean remove(int id) {
         try (Connection connection = BaseRepository.getConnectDB();
              PreparedStatement preparedStatement = connection.prepareStatement(DELETE)) {
-            preparedStatement.setInt(1,id);
+            preparedStatement.setInt(1, id);
             int effectRow = preparedStatement.executeUpdate();
             return effectRow == 1;
         } catch (SQLException e) {
@@ -93,7 +95,26 @@ public class HopDongRepository implements IHopDongRepository {
     }
 
     @Override
-    public List<HopDongDtoResponse> findByNameAndPrice(int price, String name) {
-        return null;
+    public List<HopDongDtoResponse> searchBySinhVienVaLoaiPhong(String tenSinhVienSearch, int maPhong) {
+        List<HopDongDtoResponse> hopDongDtoResponseList = new ArrayList<>();
+        try (Connection connection = BaseRepository.getConnectDB();
+             CallableStatement callableStatement = connection.prepareCall(SEARCH)) {
+            callableStatement.setString(1, tenSinhVienSearch);
+            callableStatement.setInt(2, maPhong);
+            ResultSet resultSet = callableStatement.executeQuery();
+            while (resultSet.next()) {
+                int hopDongId = resultSet.getInt("ma_hop_dong");
+                String tenSinhVien = resultSet.getString("ten_sinh_vien");
+                String tenPhong = resultSet.getString("ten_phong");
+                LocalDate thoiGianBatDau = resultSet.getDate("thoi_gian_bat_dau").toLocalDate();
+                LocalDate thoiGianKetThuc = resultSet.getDate("thoi_gian_ket_thuc").toLocalDate();
+                int chiPhiThue = resultSet.getInt("chi_phi_thue");
+                HopDongDtoResponse hopDongDtoResponse = new HopDongDtoResponse(hopDongId, tenSinhVien, tenPhong, thoiGianBatDau, thoiGianKetThuc, chiPhiThue);
+                hopDongDtoResponseList.add(hopDongDtoResponse);
+            }
+        } catch (SQLException e) {
+            System.out.println("loi ket noi database");
+        }
+        return hopDongDtoResponseList;
     }
 }

@@ -150,6 +150,11 @@
         let ngayBatDau = document.getElementById("ngayBatDau").value;
         let ngayKetThuc = document.getElementById("ngayKetThuc").value;
         let giaThue = document.getElementById("giaThue").value;
+        let thoiGianHienTai = new Date();
+        let dateNgayBatDauThue = new Date(ngayBatDau);
+        let dateNgayKetThucThue = new Date(ngayKetThucu);
+        let thangBatDauThue = new Date(ngayBatDau).getMonth();
+        let thangKetThucThue = new Date(ngayKetThuc).getMonth();
 
         if (sinhVien === "") {
             hienLoi("sinhVien", "Vui lòng chọn sinh viên");
@@ -171,23 +176,22 @@
 
         if (ngayBatDau === "") {
             hienLoi("ngayBatDau", "Không được để trống");
+        } else if (dateNgayBatDauThue < thoiGianHienTai) {
+            hienLoi("ngayBatDau", "Ngày bắt đầu thuê không thể nhỏ hơn ngày làm hợp đồng")
         } else {
             hienThanhCong("ngayBatDau");
         }
 
         if (ngayKetThuc === "") {
             hienLoi("ngayKetThuc", "Không được để trống");
+        } else if (thangBatDauThue >= thangKetThucThue && dateNgayBatDauThue > dateNgayKetThucThue) {
+            hienLoi("ngayBatDau", "Ngày kết thúc thue phai lớn hơn bắt đầu");
         } else {
             hienThanhCong("ngayKetThuc");
         }
 
-        if (giaThue === "" || parseInt(giaThue) < 0) {
-            hienLoi("giaThue", "Giá thuê phải lớn hơn hoặc bằng 0");
-        } else {
-            hienThanhCong("giaThue");
-        }
         let isValid = sinhVien !== "" && taiKhoanSinhVien !== "" && tenPhong !== ""
-            && ngayBatDau !== "" && ngayKetThuc !== "" && giaThue >= 0 && giaThue !== "";
+            && ngayBatDau !== "" && ngayKetThuc !== "" && giaThue !== "";
         document.getElementById("btnTaoMoi").disabled = !isValid;
     }
 
@@ -199,7 +203,6 @@
             });
         }
     });
-
 </script>
 </body>
 </html>

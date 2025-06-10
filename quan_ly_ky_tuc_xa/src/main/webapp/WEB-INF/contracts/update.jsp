@@ -159,6 +159,11 @@
         let ngayBatDau = document.getElementById("ngayBatDau").value;
         let ngayKetThuc = document.getElementById("ngayKetThuc").value;
         let giaThue = document.getElementById("giaThue").value;
+        let thoiGianHienTai = new Date();
+        let dateNgayBatDauThue = new Date(ngayBatDau);
+        let thangHienTai = new Date().getMonth();
+        let thangBatDauThue = new Date(ngayBatDau).getMonth();
+        let thangKetThucThue = new Date(ngayKetThuc).getMonth();
 
         if (sinhVien === "") {
             hienLoi("sinhVien", "Vui lòng chọn sinh viên");
@@ -180,12 +185,16 @@
 
         if (ngayBatDau === "") {
             hienLoi("ngayBatDau", "Không được để trống");
+        } else if (dateNgayBatDauThue < thoiGianHienTai) {
+            hienLoi("ngayBatDau", "Ngày bắt đầu thuê không thể nhỏ hơn ngày làm hợp đồng")
         } else {
             hienThanhCong("ngayBatDau");
         }
 
         if (ngayKetThuc === "") {
             hienLoi("ngayKetThuc", "Không được để trống");
+        } else if (thangBatDauThue >= thangKetThucThue && dateNgayBatDauThue < thoiGianHienTai) {
+            hienLoi("ngayBatDau", "Tháng kết thúc thuê phải lớn tháng kết thúc thuê");
         } else {
             hienThanhCong("ngayKetThuc");
         }
@@ -200,7 +209,7 @@
         document.getElementById("btnTaoMoi").disabled = !isValid;
     }
 
-    
+
     document.addEventListener("DOMContentLoaded", function () {
         if (window.jQuery && $.fn.select2) {
             $('#sinhVien').select2({
