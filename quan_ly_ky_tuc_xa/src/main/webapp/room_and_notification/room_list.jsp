@@ -12,7 +12,11 @@
             integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
             crossorigin="anonymous"></script>
 </head>
+<jsp:include page="/WEB-INF/common/head_admin.jsp"/>
+
 <body class="container py-4">
+<jsp:include page="/WEB-INF/common/navbar_admin.jsp"/>
+
 <div class="d-flex justify-content-between align-items-center mb-3">
     <h3 class="mb-0">Danh sách phòng hiện có</h3>
     <a class="btn btn-secondary btn-sm" href="phongs?action=create">Thêm mới phòng</a>
@@ -99,7 +103,7 @@
     $('#tablePhong').dataTable({
         "dom": 'lrtip',            // Giao diện (l - length, r - processing, t - table, i - info, p - pagination)
         "lengthChange": false,     // Ẩn dropdown chọn số dòng/trang
-        "pageLength": 5,           // Mặc định 5 dòng
+        "pageLength": 3,           // Mặc định 5 dòng
         "searching": true,         // Cho phép tìm kiếm
         "ordering": true           // Cho phép sắp xếp cột
     });

@@ -22,9 +22,11 @@
 
     $(document).ready(function () {
         $('#tableBienBan').dataTable({
-            "dom": 'lrtip',
-            "lengthChange": false,
-            "pageLength": 2
+            "dom": 'lrtip',            // Giao diện (l - length, r - processing, t - table, i - info, p - pagination)
+            "lengthChange": false,     // Ẩn dropdown chọn số dòng/trang
+            "pageLength": 3,           // Mặc định 5 dòng
+            "searching": true,         // Cho phép tìm kiếm
+            "ordering": true
         })
     })
 
@@ -56,7 +58,7 @@
         </form>
     </div>
 
-    <table class="table table-sm table-bordered text-center table-striped" id="tableBienBan">
+    <table class="table table-bordered table-hover mt-3" id="tableBienBan">
         <thead class="table-light">
         <tr>
             <th>No</th>

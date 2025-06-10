@@ -36,7 +36,7 @@
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-md-10 form-container">
-      <h2 class="mb-4">Sửa sản phẩm</h2>
+      <h2 class="mb-4">Chỉnh sửa phòng</h2>
       <form method="post" action="phongs" class="row g-3">
         <input type="hidden" name="action" value="update">
         <input type="hidden" name="id" value="${phong.idPhong}">

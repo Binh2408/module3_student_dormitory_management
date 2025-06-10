@@ -108,7 +108,7 @@
           <a class="nav-link text-white nav-hover <%= currentPage.contains("gioi-thieu") ? "active" : "" %>" href="gioi-thieu.jsp">Giới thiệu</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white nav-hover <%= currentPage.contains("thong_bao") ? "active" : "" %>" href="room_and_notification/nitification.jsp">Thông báo</a>
+          <a class="nav-link text-white nav-hover <%= currentPage.contains("thong_bao") ? "active" : "" %>" href="../room_and_notification/nitification.jsp">Thông báo</a>
         </li>
         <li class="nav-item">
           <a class="nav-link text-white nav-hover <%= currentPage.contains("information_ktx") ? "active" : "" %>" href="../navbar/information_ktx.jsp">Thông tin KTX</a>

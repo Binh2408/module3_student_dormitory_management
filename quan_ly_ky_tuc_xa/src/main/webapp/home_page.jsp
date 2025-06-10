@@ -6,6 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,6 +22,23 @@
 <body>
 
 <%@ include file="header_navbar_footer/header.jsp" %>
+<c:if test="${not empty sessionScope.success}">
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 9999">
+        <div id="loginToast" class="toast align-items-center text-white bg-success border-0"
+             role="alert" aria-live="assertive" aria-atomic="true"
+             data-bs-delay="3000" data-bs-autohide="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                        ${sessionScope.success}
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+</c:if>
+<%
+    session.removeAttribute("success");
+%>
 
 <!-- SLIDE-BAR -->
 <div class="row">
@@ -194,6 +213,15 @@
 <%@include file="header_navbar_footer/footer.jsp"%>
 <button id="backToTop" title="Lên đầu trang">↑</button>
 </body>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        const toastEl = document.getElementById('loginToast');
+        if (toastEl) {
+            const toast = new bootstrap.Toast(toastEl);
+            toast.show();
+        }
+    });
+</script>
 
 <script>
   const backToTopBtn = document.getElementById("backToTop");
@@ -214,5 +242,6 @@
   });
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 
 </html>
