@@ -92,7 +92,7 @@
                         <div class="row mt-4 justify-content-center">
                             <div class="col-6 col-md-4">
                                 <button type="submit" class="btn btn-outline-success w-100" id="taoMoiBienBan"
-                                       disabled>Tạo Mới
+                                        disabled>Tạo Mới
                                 </button>
                             </div>
                             <div class="col-6 col-md-4">
@@ -107,8 +107,8 @@
         </form>
     </div>
 </div>
-
 <script>
+
 
     function hienLoi(field, message) {
         document.getElementById(field + "Loi").innerText = message;
@@ -130,6 +130,15 @@
         kiemTraDuLieu();
     }
 
+    function tinhSoThangGiuaHaiNgay(ngay1, ngay2) {
+        let nam1 = ngay1.getFullYear();
+        let thang1 = ngay1.getMonth(); // 0-11
+        let nam2 = ngay2.getFullYear();
+        let thang2 = ngay2.getMonth();
+
+        return Math.abs((nam2 - nam1) * 12 + (thang2 - thang1));
+    }
+
     function kiemTraDuLieu() {
         let sinhVien = document.getElementById("sinhVien").value;
         let taiKhoanSinhVien = document.getElementById("taiKhoanSinhVien").value;
@@ -138,8 +147,6 @@
         let thoiGianViPham = document.getElementById("thoiGianViPham").value;
         let thoiGianViPhamDate = new Date(thoiGianViPham);
         let thoiGianHienTai = new Date();
-        let namHienTai = new Date().getFullYear();
-        let namViPham = thoiGianViPham ? new Date(thoiGianViPham).getFullYear() : 0;
 
         if (sinhVien === "") {
             hienLoi("sinhVien", "Không được để trống")
@@ -149,27 +156,30 @@
             hienLoi("taiKhoanSinhVien", "Không được để trống");
         } else hienThanhCong("taiKhoanSinhVien");
 
-        if (loaiViPham === "") {hienLoi("loaiViPham", "Không được để trống");}
-        else hienThanhCong("loaiViPham");
+        if (loaiViPham === "") {
+            hienLoi("loaiViPham", "Không được để trống");
+        } else hienThanhCong("loaiViPham");
 
-        if (mucDoViPham === ""){hienLoi("mucDoViPham", "Không được để trống");}
-        else hienThanhCong("mucDoViPham");
+        if (mucDoViPham === "") {
+            hienLoi("mucDoViPham", "Không được để trống");
+        } else hienThanhCong("mucDoViPham");
 
         if (thoiGianViPham === "") {
             hienLoi("thoiGianViPham", "Không được để trống");
-        } else if (namHienTai - namViPham >= 1) {
-            hienLoi("thoiGianViPham", "Không thể nhỏ hơn thời gian hiện tại 1 năm")
         } else if (thoiGianViPhamDate > thoiGianHienTai) {
-            hienLoi("thoiGianViPham", "Thời gian vi phạm không thể lớn hơn thời gian hiện tại ")
+            hienLoi("thoiGianViPham", "Thời gian vi phạm không thể lớn hơn thời gian hiện tại");
+        } else if (
+            thoiGianViPhamDate.getMonth() !== thoiGianHienTai.getMonth() ||
+            thoiGianViPhamDate.getFullYear() !== thoiGianHienTai.getFullYear()
+        ) {
+            hienLoi("thoiGianViPham", "Thời gian vi phạm phải nằm trong tháng hiện tại");
         } else {
             hienThanhCong("thoiGianViPham");
         }
 
         let isValid = sinhVien !== "" && taiKhoanSinhVien !== "" && loaiViPham !== "" &&
-            mucDoViPham !== "" && thoiGianViPham !== "" &&
-            namHienTai - namViPham < 1 && thoiGianViPhamDate > thoiGianHienTai
-
-        document.getElementById("taoMoiBienBan").disabled = isValid;
+            mucDoViPham !== "" && thoiGianViPham !== "" && thoiGianViPhamDate < thoiGianHienTai
+        document.getElementById("taoMoiBienBan").disabled = !isValid;
     }
 
 

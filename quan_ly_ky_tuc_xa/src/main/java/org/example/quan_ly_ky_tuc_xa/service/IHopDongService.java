@@ -24,6 +24,7 @@ public interface IHopDongService {
         }
         return null;
     }
+    List<HopDongDtoResponse> searchBySinhVienVaLoaiPhong(String tenSinhVien, int maPhong);
 
     ThongTinHopDongDTO findContractByUsername(String username);
 

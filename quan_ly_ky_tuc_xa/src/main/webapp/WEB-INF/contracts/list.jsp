@@ -7,8 +7,14 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <jsp:include page="/WEB-INF/common/head_admin.jsp"/>
+<style>
+    th {
+        text-align: center !important;
+    }
+</style>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         let deleteButtons = document.querySelectorAll(".btn-delete");
@@ -17,6 +23,12 @@
             button.addEventListener("click", function () {
                 deleteContractCodeInput.value = this.getAttribute("data-id")
             })
+        }
+
+        const toastElement = document.getElementById('message');
+        if (toastElement) {
+            const toast = new bootstrap.Toast(toastElement);
+            toast.show();
         }
     })
     $(document).ready(function () {
@@ -32,20 +44,51 @@
 <jsp:include page="/WEB-INF/common/navbar_admin.jsp"/>
 <!-- QUẢN LÝ HỢP ĐỒNG -->
 <div class="container container-section" id="contract-section">
+    <c:if test="${not empty param.message}">
+        <div class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive"
+             aria-atomic="true" id="message">
+            <div class="d-flex">
+                <div class="toast-body">
+                        ${param.message}
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                        aria-label="Close"></button>
+            </div>
+        </div>
+    </c:if>
     <h2 class="text-center mt-3 mb-4 text-success">Quản Lý Hợp Đồng</h2>
-    <button class="btn btn-success mb-3" onclick="window.location.href='contract?action=add'">
-        <i class="fa fa-plus"></i> Thêm MớI Hợp Đồng
-    </button>
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <!-- Nút tạo mới bên trái -->
+        <button class="btn btn-success mb-3" onclick="window.location.href='contract?action=add'">
+            <i class="fa fa-plus"></i> Thêm MớI Hợp Đồng
+        </button>
+
+        <!-- Form tìm kiếm bên phải -->
+        <form class="d-flex" role="search" method="post" action="contract?action=search">
+            <input class="form-control me-2" type="search" placeholder="Search by name" name="search"
+                   aria-label="Search">
+
+            <select name="phong_id" class="form-control me-2" aria-label="Search">
+                <option value="${0}">-- Chọn Phòng --</option>
+                <c:forEach items="${phongList}" var="phong">
+                    <option value="${phong.idPhong}">${phong.tenPhong}</option>
+                </c:forEach>
+            </select>
+
+            <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+    </div>
     <table class="table table-sm table-bordered text-center table-striped" id="tableHopDong">
         <thead class="table-light">
         <tr>
-            <th>NO</th>
-            <th>Student Name</th>
-            <th>Room</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>RentalCost</th>
-            <th>Actions</th>
+            <th style="text-align: center">STT</th>
+            <th style="text-align: left">Tên Sinh Viên</th>
+            <th style="text-align: center">Phòng</th>
+            <th style="text-align: center">Ngày Bắt Đầu Thuê</th>
+            <th style="text-align: center">Ngày Kết Thúc Thuê</th>
+            <th style="text-align: center">Chi Phí Thuê</th>
+            <th style="text-align: center">Hành Động</th>
         </tr>
         </thead>
         <tbody>
@@ -56,7 +99,9 @@
                 <td>${hopDongDtoResponse.tenPhong}</td>
                 <td>${hopDongDtoResponse.thoiGianBatDau}</td>
                 <td>${hopDongDtoResponse.thoiGianKetThuc}</td>
-                <td>${hopDongDtoResponse.chiPhiThue}</td>
+                <td>
+                    <fmt:formatNumber value="${hopDongDtoResponse.chiPhiThue}" type="number" groupingUsed="true"/>VND
+                </td>
                 <td>
                     <button class="btn btn-sm btn-warning btn-update me-1" data-bs-toggle="modal"
                             data-id="${hopDongDtoResponse.maHopDong}"
@@ -72,6 +117,9 @@
         </c:forEach>
         </tbody>
     </table>
+    <c:if test="${not empty param.message}">
+        <p id="message" style="color: blue">${param.message}</p>
+    </c:if>
 
     <div class="modal fade" id="confirmDeleteModal" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">

@@ -51,7 +51,7 @@
                                             onblur="kiemTraDuLieu()" onchange="hienThiGiaPhongMoiThang(this)">
                                         <option value="">-- Chọn phòng --</option>
                                         <c:forEach items="${phongList}" var="phong">
-                                            <option value="${phong.phongId}"
+                                            <option value="${phong.idPhong}"
                                                     data-gia_moi_thang="${phong.giaMoiThang}">${phong.tenPhong}</option>
                                         </c:forEach>
                                     </select>
@@ -150,6 +150,9 @@
         let ngayBatDau = document.getElementById("ngayBatDau").value;
         let ngayKetThuc = document.getElementById("ngayKetThuc").value;
         let giaThue = document.getElementById("giaThue").value;
+        let thoiGianHienTai = new Date();
+        let dateNgayBatDauThue = new Date(ngayBatDau);
+        let dateNgayKetThucThue = new Date(ngayKetThuc);
 
         if (sinhVien === "") {
             hienLoi("sinhVien", "Vui lòng chọn sinh viên");
@@ -171,23 +174,27 @@
 
         if (ngayBatDau === "") {
             hienLoi("ngayBatDau", "Không được để trống");
+        } else if (dateNgayBatDauThue < thoiGianHienTai) {
+            hienLoi("ngayBatDau", "Ngày bắt đầu thuê không thể nhỏ hơn ngày làm hợp đồng")
         } else {
             hienThanhCong("ngayBatDau");
         }
 
         if (ngayKetThuc === "") {
             hienLoi("ngayKetThuc", "Không được để trống");
+        } else if (dateNgayBatDauThue > dateNgayKetThucThue) {
+            hienLoi("ngayKetThuc", "Ngày kết thúc thue phai lớn hơn bắt đầu");
+        } else if (
+            dateNgayBatDauThue.getMonth() >= dateNgayKetThucThue.getMonth()
+        ) {
+            hienLoi("ngayKetThuc","Tháng kết thúc thuê phải lớn hơn tháng hiện tại");
         } else {
             hienThanhCong("ngayKetThuc");
         }
 
-        if (giaThue === "" || parseInt(giaThue) < 0) {
-            hienLoi("giaThue", "Giá thuê phải lớn hơn hoặc bằng 0");
-        } else {
-            hienThanhCong("giaThue");
-        }
         let isValid = sinhVien !== "" && taiKhoanSinhVien !== "" && tenPhong !== ""
-            && ngayBatDau !== "" && ngayKetThuc !== "" && giaThue >= 0 && giaThue !== "";
+            && ngayBatDau !== "" && ngayKetThuc !== "" && giaThue !== ""
+            && dateNgayBatDauThue < dateNgayKetThucThue && dateNgayBatDauThue.getMonth() < dateNgayKetThucThue.getMonth()
         document.getElementById("btnTaoMoi").disabled = !isValid;
     }
 
@@ -199,7 +206,6 @@
             });
         }
     });
-
 </script>
 </body>
 </html>

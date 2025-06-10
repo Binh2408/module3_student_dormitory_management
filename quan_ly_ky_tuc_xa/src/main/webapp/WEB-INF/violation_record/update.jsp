@@ -168,10 +168,13 @@
 
         if (thoiGianViPham === "") {
             hienLoi("thoiGianViPham", "Không được để trống");
-        } else if (namHienTai - namViPham >= 1) {
-            hienLoi("thoiGianViPham", "Không thể nhỏ hơn thời gian hiện tại 1 năm")
         } else if (thoiGianViPhamDate > thoiGianHienTai) {
-            hienLoi("thoiGianViPham", "Thời gian vi phạm không thể lớn hơn thời gian hiện tại ")
+            hienLoi("thoiGianViPham", "Thời gian vi phạm không thể lớn hơn thời gian hiện tại");
+        } else if (
+            thoiGianViPhamDate.getMonth() !== thoiGianHienTai.getMonth() ||
+            thoiGianViPhamDate.getFullYear() !== thoiGianHienTai.getFullYear()
+        ) {
+            hienLoi("thoiGianViPham", "Thời gian vi phạm phải nằm trong tháng hiện tại");
         } else {
             hienThanhCong("thoiGianViPham");
         }
@@ -197,7 +200,6 @@
             hienThiThongTinSinhVien(sinhVienSelect);
         }
         <%--document.getElementById("thoiGianViPham").value =`${bienBanViPhamDtoReponse.thoiGianViPham}`--%>
-
         kiemTraDuLieu();
     })
 

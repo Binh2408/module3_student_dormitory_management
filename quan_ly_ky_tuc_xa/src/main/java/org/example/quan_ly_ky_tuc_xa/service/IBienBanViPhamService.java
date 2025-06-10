@@ -22,5 +22,6 @@ public interface IBienBanViPhamService {
         }
         return null;
     }
+    List<BienBanViPhamDtoReponse> searchBySinhVienVaLoaiViPham(String tenSinhVien,int maLoaiViPham);
 
 }
