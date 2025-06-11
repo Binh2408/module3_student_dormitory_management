@@ -55,7 +55,7 @@ public class BienBanViPhamController extends HttpServlet {
     }
 
     private void deleteBienBan(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        int deleteBienBanId = Integer.parseInt(req.getParameter("deleteContractId"));
+        int deleteBienBanId = Integer.parseInt(req.getParameter("idBienBanXoa"));
         boolean isDeleteSuccess = bienBanViPhamService.remove(deleteBienBanId);
         String mess = "Delete Success";
         if (!isDeleteSuccess) {
