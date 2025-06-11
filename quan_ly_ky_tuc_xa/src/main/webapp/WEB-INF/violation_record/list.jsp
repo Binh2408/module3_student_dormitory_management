@@ -23,7 +23,6 @@
                 deleteContractCodeInput.value = this.getAttribute("data-id")
             })
         }
-    })
 
         const toastElement = document.getElementById('message');
         if (toastElement) {
@@ -31,6 +30,8 @@
             toast.show();
         }
     })
+
+
     $(document).ready(function () {
         $('#tableBienBan').DataTable({
             "info": false,
@@ -198,7 +199,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Thoát</button>
                     <form method="post" action="violationRecord?action=delete">
-                        <input type="hidden" id="idBienBanXoa" name="deleteContractId">
+                        <input type="hidden" id="idBienBanXoa" name="idBienBanXoa">
                         <button type="submit" id="confirmDeleteBtn" class="btn btn-danger">Có ,Xoá</button>
                     </form>
                 </div>
