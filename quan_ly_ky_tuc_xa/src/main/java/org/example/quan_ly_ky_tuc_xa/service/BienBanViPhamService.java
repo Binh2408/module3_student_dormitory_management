@@ -32,6 +32,11 @@ public class BienBanViPhamService implements IBienBanViPhamService {
     public boolean remove(int id) {
         return bienBanViPhamRepository.remove(id);
     }
+
+    @Override
+    public List<BienBanViPhamDtoReponse> searchBySinhVienVaLoaiViPham(String tenSinhVien, int maLoaiViPham) {
+        return bienBanViPhamRepository.searchBySinhVienVaLoaiViPham(tenSinhVien, maLoaiViPham);
+    }
 }
 
 

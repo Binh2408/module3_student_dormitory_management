@@ -1,7 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -120,32 +119,25 @@
         <form method="post" action="/phongs?action=delete">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Chức năng xóa</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h5 class="modal-title text-danger">Xoá Phòng</h5>
                 </div>
                 <div class="modal-body">
-                    <input hidden="hidden" id="deleteId" name="deleteId">
-                    <span>Bạn có muốn xoá phòng </span><span id="deleteName"></span> không?
+                    Bạn chắc chắn muốn xoá phòng <strong><span id="deleteName"></span></strong>?
+                    <input type="hidden" name="deleteId" id="deleteId">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
-                    <button class="btn btn-primary">Xoá</button>
+                    <button class="btn btn-danger" type="submit">Xoá</button>
                 </div>
             </div>
         </form>
     </div>
 </div>
-<script>
-    function deleteInfo(id, name) {
-        document.getElementById("deleteId").value = id;
-        document.getElementById("deleteName").innerText = name;
-    }
-</script>
+
+<!-- JS: jQuery + DataTables + Toast -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css"/>
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
-
 <script>
     $('#tablePhong').dataTable({
         "dom": 'strip',            // Giao diện (l - length, r - processing, t - table, i - info, p - pagination)
@@ -163,8 +155,14 @@
             infoFiltered: "",
             lengthMenu: "Hiển thị _MENU_ dòng mỗi trang",
             zeroRecords: "Không tìm thấy dữ liệu",
+
         }
     });
+
+    function deleteInfo(id, name) {
+        document.getElementById("deleteId").value = id;
+        document.getElementById("deleteName").innerText = name;
+    }
 </script>
 </body>
 </html>

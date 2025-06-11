@@ -14,6 +14,7 @@ public class LoginController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
         // Lấy Cookie username nếu có
         String savedUsername = null;
         Cookie[] cookies = req.getCookies();
@@ -33,6 +34,7 @@ public class LoginController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
         String username = req.getParameter("username");
         String password = req.getParameter("password");
         String remember = req.getParameter("remember");
@@ -43,6 +45,9 @@ public class LoginController extends HttpServlet {
             HttpSession session = req.getSession();
             session.setAttribute("account", account);
             session.setAttribute("success", "Đăng nhập thành công!");
+
+            session.setAttribute("loggedUsername", account.getUserName());
+
             // Nếu có chọn "Ghi nhớ tôi", lưu username vào cookie
             if ("on".equals(remember)) {
                 Cookie cookie = new Cookie("username", username);

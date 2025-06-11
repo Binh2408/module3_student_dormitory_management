@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <jsp:include page="/WEB-INF/common/head_admin.jsp"/>
 <body>
@@ -21,7 +22,7 @@
     // Vẽ sơ đồ thống kê
     const result = {
         labels: ["Quý 1", "Quý 2", "Quý 3", "Quý 4"],
-        data: [3200000, 4500000, 2100000, 3800000]
+        data: <%=request.getAttribute("doanhThu")%>
     };
     const ctx = document.getElementById("revenueChart").getContext('2d');
     const revenueChart = new Chart(ctx, {

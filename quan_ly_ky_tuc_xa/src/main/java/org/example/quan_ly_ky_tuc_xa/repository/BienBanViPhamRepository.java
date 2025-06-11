@@ -3,7 +3,6 @@ package org.example.quan_ly_ky_tuc_xa.repository;
 
 import org.example.quan_ly_ky_tuc_xa.dto.BienBanViPhamDtoReponse;
 import org.example.quan_ly_ky_tuc_xa.entity.BienBanViPham;
-
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -26,6 +25,8 @@ public class BienBanViPhamRepository implements IBienBanViPhamRepository {
             " thoi_gian_vi_pham=? where ma_bien_ban_vi_pham=?;";
 
     private static final String DELETE = "update bien_ban_vi_pham set is_delete =1 where ma_bien_ban_vi_pham =?;";
+
+    private static final String SEARCH = "call search_by_sinh_vien_and_loai_vi_pham(?,?)";
 
 
     @Override
@@ -97,4 +98,27 @@ public class BienBanViPhamRepository implements IBienBanViPhamRepository {
         return false;
     }
 
+    @Override
+    public List<BienBanViPhamDtoReponse> searchBySinhVienVaLoaiViPham(String tenSinhVienViPham, int maLoaiViPham) {
+        List<BienBanViPhamDtoReponse> bienBanViPhamDtoReponseList = new ArrayList<>();
+        try (Connection connection = BaseRepository.getConnectDB();
+             CallableStatement callableStatement = connection.prepareCall(SEARCH)) {
+            callableStatement.setString(1, tenSinhVienViPham);
+            callableStatement.setInt(2, maLoaiViPham);
+            ResultSet resultSet = callableStatement.executeQuery();
+            while (resultSet.next()){
+                int maBienBanViPham = resultSet.getInt("ma_bien_ban_vi_pham");
+                String tenSinhVien = resultSet.getString("ten_sinh_vien");
+                String tenViPham = resultSet.getString("ten_vi_pham");
+                String tenMucDoViPham = resultSet.getString("ten_muc_do_vi_pham");
+                Date sqlThoiGianViPham = resultSet.getDate("thoi_gian_vi_pham");
+                LocalDate thopGianViPham = sqlThoiGianViPham != null ? sqlThoiGianViPham.toLocalDate() : null;
+                bienBanViPhamDtoReponseList.add(new BienBanViPhamDtoReponse(maBienBanViPham, tenSinhVien,
+                        tenViPham, tenMucDoViPham, thopGianViPham));
+            }
+        } catch (SQLException e) {
+            System.out.println("loi ket noi database");
+        }
+        return bienBanViPhamDtoReponseList;
+    }
 }

@@ -71,8 +71,8 @@
         <i class="bi bi-person-circle"></i>
       </button>
       <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
-        <li><a class="dropdown-item" href="#">Thông tin cá nhân</a></li>
-        <li><a class="dropdown-item" href="logout">Đăng xuất</a></li>
+        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/students">Thông tin cá nhân</a></li>
+        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/logout">Đăng xuất</a></li>
       </ul>
     </div>
 
@@ -105,19 +105,19 @@
           <a class="nav-link text-white nav-hover <%= currentPage.contains("homepage") ? "active" : "" %>" href="../home_page.jsp">Trang chủ</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white nav-hover <%= currentPage.contains("gioi-thieu") ? "active" : "" %>" href="gioi-thieu.jsp">Giới thiệu</a>
+          <a class="nav-link text-white nav-hover <%= currentPage.contains("gioi-thieu") ? "active" : "" %>" href="../navbar/dang_phat_trien.jsp">Giới thiệu</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white nav-hover <%= currentPage.contains("thong_bao") ? "active" : "" %>" href="room_and_notification/nitification.jsp">Thông báo</a>
+          <a class="nav-link text-white nav-hover <%= currentPage.contains("thong_bao") ? "active" : "" %>" href="../room_and_notification/nitification.jsp">Thông báo</a>
         </li>
         <li class="nav-item">
           <a class="nav-link text-white nav-hover <%= currentPage.contains("information_ktx") ? "active" : "" %>" href="../navbar/information_ktx.jsp">Thông tin KTX</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white nav-hover <%= currentPage.contains("gop-y") ? "active" : "" %>" href="gop-y.jsp">Góp ý</a>
+          <a class="nav-link text-white nav-hover <%= currentPage.contains("gop-y") ? "active" : "" %>" href="../navbar/dang_phat_trien.jsp">Góp ý</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white nav-hover <%= currentPage.contains("hop-dong") ? "active" : "" %>" href="hop-dong.jsp">Hợp đồng</a>
+          <a class="nav-link text-white nav-hover <%= currentPage.contains("hop-dong") ? "active" : "" %>" href="/contracts">Hợp đồng</a>
         </li>
       </ul>
     </div>
