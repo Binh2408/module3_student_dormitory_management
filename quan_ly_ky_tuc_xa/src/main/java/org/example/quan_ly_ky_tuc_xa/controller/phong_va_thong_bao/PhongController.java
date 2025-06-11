@@ -31,9 +31,11 @@ public class PhongController extends HttpServlet {
             case "update":
                 showFormEdit(request,response);
                 break;
-            case "delete":
-                break;
             case "search":
+                search(request,response);
+                break;
+            case "detail":
+                detail(request,response);
                 break;
             default:
                 List<Phong> phongList = servicePhong.findAll();
@@ -44,6 +46,7 @@ public class PhongController extends HttpServlet {
                 break;
         }
     }
+
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
@@ -60,11 +63,21 @@ public class PhongController extends HttpServlet {
             case "delete":
                 delete(request, response);
                 break;
-            case "search":
-                break;
             default:
                 break;
         }
+    }
+
+    private void search(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String searchName =request.getParameter("searchName");
+        int maLoaiPhong=Integer.parseInt(request.getParameter("maLoaiPhong"));
+        request.setAttribute("searchName",searchName);
+        request.setAttribute("maLoaiPhong",maLoaiPhong);
+        request.setAttribute("listTrangThai", serviceTrangThaiPhong.findAll());
+        request.setAttribute("phongList",servicePhong.search(searchName,maLoaiPhong));
+        request.setAttribute("listLoaiPhong",serviceLoaiPhong.findAll());
+        RequestDispatcher dispatcher=request.getRequestDispatcher("/room_and_notification/room_list.jsp");
+        dispatcher.forward(request,response);
     }
 
     private void showFormAdd(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -75,6 +88,27 @@ public class PhongController extends HttpServlet {
         // Gửi request tới JSP một lần duy nhất
         RequestDispatcher dispatcher = req.getRequestDispatcher("/room_and_notification/create_room.jsp");
         dispatcher.forward(req, resp);
+    }
+
+    private void detail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int detailId;
+        try {
+            detailId = Integer.parseInt(request.getParameter("id"));
+        } catch (NumberFormatException e) {
+            request.setAttribute("error", "ID phòng không hợp lệ");
+            request.getRequestDispatcher("/room_and_notification/error.jsp").forward(request, response);
+            return;
+        }
+        Phong phong = servicePhong.findById(detailId);
+        if (phong == null) {
+            request.setAttribute("error", "Không tìm thấy phòng với ID: " + detailId);
+            request.getRequestDispatcher("/room_and_notification/error.jsp").forward(request, response);
+            return;
+        }
+        request.setAttribute("phong", phong);
+        request.setAttribute("listLoaiPhong", serviceLoaiPhong.findAll());
+        request.setAttribute("listTrangThai", serviceTrangThaiPhong.findAll());
+        request.getRequestDispatcher("/room_and_notification/detail.jsp").forward(request, response);
     }
 
     private void showFormEdit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -98,14 +132,16 @@ public class PhongController extends HttpServlet {
         int ma_trang_thai = Integer.parseInt(request.getParameter("ma_trang_thai"));
         int is_delete = Integer.parseInt(request.getParameter("is_delete"));
         Phong phong = new Phong(id,ten_phong,ma_loai_phong,so_nguoi_do_da,so_nguoi_hien_tai,gia_moi_thang,ma_trang_thai,is_delete);
-         servicePhong.edit(phong);
-        response.sendRedirect("/phongs");
+        boolean isUpdateSuccess= servicePhong.edit(phong);
+        String message=isUpdateSuccess?"updateSuccess":"updateFailed";
+        response.sendRedirect("/phongs?message="+message);
     }
 
     private void delete(HttpServletRequest request, HttpServletResponse response) throws IOException {
         int deleteId = Integer.parseInt(request.getParameter("deleteId"));
-        servicePhong.delete(deleteId);
-        response.sendRedirect("/phongs?massage=delete");
+        boolean isDeleteSuccess =servicePhong.delete(deleteId);
+        String mess=isDeleteSuccess?"deleteDeleted success":"deleteNot deleted success";
+        response.sendRedirect("/phongs?message="+ mess );
     }
 
     private void add(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -115,9 +151,9 @@ public class PhongController extends HttpServlet {
         int so_nguoi_hien_tai = Integer.parseInt(request.getParameter("so_nguoi_hien_tai"));
         double gia_moi_thang = Double.parseDouble(request.getParameter("gia_moi_thang"));
         int ma_trang_thai = Integer.parseInt(request.getParameter("ma_trang_thai"));
-
         Phong phong = new Phong(ten_phong,ma_loai_phong,so_nguoi_do_da,so_nguoi_hien_tai,gia_moi_thang,ma_trang_thai);
-        servicePhong.add(phong);
-        response.sendRedirect("/phongs");
+        boolean isAddSuccess= servicePhong.add(phong);
+        String message= isAddSuccess?"addSuccess":"addFailed";
+        response.sendRedirect("/phongs?message=" +message);
     }
 }

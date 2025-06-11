@@ -14,9 +14,57 @@
 </head>
 <body class="container py-4">
 <div class="d-flex justify-content-between align-items-center mb-3">
-    <h3 class="mb-0">Danh sách phòng hiện có</h3>
-    <a class="btn btn-secondary btn-sm" href="phongs?action=create">Thêm mới phòng</a>
+    <button class="btn btn-secondary" onclick="window.location.href='/phongs'"><h3 class="mb-0">Danh sách phòng hiện có</h3></button>
+    <a class="btn btn-primary btn-sm" href="phongs?action=create">Thêm mới phòng</a>
 </div>
+
+<c:if test="${not empty param.message}">
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <c:choose>
+            <c:when test="${param.message == 'deleteDeleted success'}">
+                Xóa phòng thành công!
+            </c:when>
+            <c:when test="${param.message == 'addSuccess'}">
+                Thêm mới phòng thành công!
+            </c:when>
+            <c:when test="${param.message == 'updateSuccess'}">
+                Cập nhật phòng thành công!
+            </c:when>
+            <c:otherwise>
+                ${param.message}
+            </c:otherwise>
+        </c:choose>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+</c:if>
+
+<form action="/phongs" method="get">
+    <input name="action" hidden="hidden"  value="search">
+    <input name="searchName" placeholder="Nhập tên phòng" value="${searchName}">
+    <select name="maLoaiPhong">
+        <option value="0">--Chọn loại phòng---</option>
+        <c:forEach items="${listLoaiPhong}" var="lp">
+            <c:if test="${lp.maLoaiPhong==maLoaiPhong}">
+                <option value="${lp.maLoaiPhong}" selected>${lp.tenLoaiPhong}</option>
+            </c:if>
+            <c:if test="${lp.maLoaiPhong!=maLoaiPhong}">
+                <option value="${lp.maLoaiPhong}">${lp.tenLoaiPhong}</option>
+            </c:if>
+        </c:forEach>
+    </select>
+    <select hidden="hidden" name="maTrangThai">
+        <option value="0">--Chọn trạng thái---</option>
+        <c:forEach items="${listTrangThai}" var="tt">
+            <c:if test="${tt.maTrangThai == maTrangThai}">
+                <option value="${tt.maTrangThai}" selected>${tt.tenTrangThai}</option>
+            </c:if>
+            <c:if test="${tt.maTrangThai != maTrangThai}">
+                <option value="${tt.maTrangThai}">${tt.tenTrangThai}</option>
+            </c:if>
+        </c:forEach>
+    </select>
+    <button>Tìm kiếm</button>
+</form>
 
 <hr class="my-4">
 <table id="tablePhong" class="table table-bordered table-hover mt-3">
@@ -37,7 +85,9 @@
             <td>${count.count}</td>
             <td>${phong.tenPhong}</td>
             <td>${phong.soNguoiHienTai} / ${phong.soNguoiToiDa}</td>
-            <td>${phong.giaMoiThang}</td>
+            <td>
+                <fmt:formatNumber value="${phong.giaMoiThang}" pattern="#,###" />
+            </td>
             <td>
                 <c:forEach var="trangThai1" items="${listTrangThai}">
                     <c:if test="${trangThai1.maTrangThai==phong.trangThai}">
@@ -58,6 +108,7 @@
                         class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     Xóa
                 </button>
+                <a href="phongs?action=detail&id=${phong.idPhong}" class="btn btn-primary btn-sm">Chi tiết</a>
             </td>
         </tr>
     </c:forEach>
@@ -97,11 +148,22 @@
 
 <script>
     $('#tablePhong').dataTable({
-        "dom": 'lrtip',            // Giao diện (l - length, r - processing, t - table, i - info, p - pagination)
+        "dom": 'strip',            // Giao diện (l - length, r - processing, t - table, i - info, p - pagination)
         "lengthChange": false,     // Ẩn dropdown chọn số dòng/trang
         "pageLength": 5,           // Mặc định 5 dòng
         "searching": true,         // Cho phép tìm kiếm
-        "ordering": true           // Cho phép sắp xếp cột
+        "ordering": true,         // Cho phép sắp xếp cột
+        language: {
+            paginate: {
+                next: 'Trang sau',
+                previous: 'Trang trước'
+            },
+            info: "",
+            infoEmpty: "",
+            infoFiltered: "",
+            lengthMenu: "Hiển thị _MENU_ dòng mỗi trang",
+            zeroRecords: "Không tìm thấy dữ liệu",
+        }
     });
 </script>
 </body>

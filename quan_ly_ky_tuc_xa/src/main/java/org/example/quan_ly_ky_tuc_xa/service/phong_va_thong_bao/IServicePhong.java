@@ -9,6 +9,6 @@ public interface IServicePhong {
     boolean add(Phong phong);
     boolean edit(Phong phong);
     boolean delete(int id);
-    Phong search(int id);
+    List<Phong> search(String name,int idLoaiPhong);
     Phong findById(int id);
 }
