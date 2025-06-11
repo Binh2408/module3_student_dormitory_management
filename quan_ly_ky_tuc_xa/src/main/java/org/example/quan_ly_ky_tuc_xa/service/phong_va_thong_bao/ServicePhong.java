@@ -29,8 +29,8 @@ public class ServicePhong implements IServicePhong{
     }
 
     @Override
-    public Phong search(int id) {
-        return repoPhong.search(id);
+    public List<Phong> search(String name,int idLoaiPhong) {
+        return repoPhong.search(name,idLoaiPhong);
     }
 
     @Override
